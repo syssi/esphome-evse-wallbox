@@ -32,9 +32,9 @@ void EvseWallbox::on_modbus_data(const std::vector<uint8_t> &data) {
 }
 
 void EvseWallbox::on_config_data_(const std::vector<uint8_t> &data) {
-  //  auto evse_get_16bit = [&](size_t i) -> uint16_t {
-  //    return (uint16_t(data[i + 0]) << 8) | (uint16_t(data[i + 1]) << 0);
-  //  };
+  auto evse_get_16bit = [&](size_t i) -> uint16_t {
+    return (uint16_t(data[i + 0]) << 8) | (uint16_t(data[i + 1]) << 0);
+  };
 
   ESP_LOGI(TAG, "Config frame received");
 
