@@ -50,6 +50,7 @@ class EvseWallbox : public PollingComponent, public modbus::ModbusDevice {
 
   bool enable_fake_traffic_;
   bool request_config_{true};
+  bool check_bit_(uint16_t mask, uint16_t flag) { return (mask & flag) == flag; }
 
   void on_status_data_(const std::vector<uint8_t> &data);
   void on_config_data_(const std::vector<uint8_t> &data);
