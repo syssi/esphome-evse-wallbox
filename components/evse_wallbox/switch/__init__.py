@@ -18,7 +18,7 @@ CODEOWNERS = ["@syssi"]
 CONF_CHARGING = "charging"
 
 SWITCHES = {
-    CONF_CHARGING: 2005,
+    CONF_CHARGING: [2005, 8192, 16384],
 }
 
 EvseSwitch = evse_wallbox_ns.class_("EvseSwitch", switch.Switch, cg.Component)
@@ -48,4 +48,4 @@ async def to_code(config):
             await switch.register_switch(var, conf)
             cg.add(getattr(hub, f"set_{key}_switch")(var))
             cg.add(var.set_parent(hub))
-            cg.add(var.set_holding_register(address))
+            cg.add(var.set_holding_register(address[0]))
