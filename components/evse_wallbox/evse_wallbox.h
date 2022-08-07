@@ -103,6 +103,7 @@ class EvseWallbox : public PollingComponent, public modbus::ModbusDevice {
   binary_sensor::BinarySensor *rcd_test_in_progress_binary_sensor_;
   binary_sensor::BinarySensor *rcd_check_error_binary_sensor_;
 
+  number::Number *output_current_setting_number_;
   number::Number *output_current_default_number_;
   number::Number *min_charging_current_number_;
 
