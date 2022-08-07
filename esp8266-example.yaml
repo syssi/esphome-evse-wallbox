@@ -40,12 +40,51 @@ evse_wallbox:
   modbus_id: modbus0
   update_interval: 2s
 
-# binary_sensor:
-#   - platform: evse_wallbox
-#     output:
-#       name: "${name} output"
+binary_sensor:
+  - platform: evse_wallbox
+    relay:
+      name: "${name} relay"
+    diode_check_failed:
+      name: "${name} diode check failed"
+    ventilation_failed:
+      name: "${name} ventilation failed"
+    waiting_for_pilot_release:
+      name: "${name} waiting for pilot release"
+    rcd_test_in_progress:
+      name: "${name} rcd test in progress"
+    rcd_check_error:
+      name: "${name} rcd check error"
 
-# sensor:
-#   - platform: evse_wallbox
-#     output_voltage:
-#       name: "${name} output voltage"
+sensor:
+  - platform: evse_wallbox
+    output_current_setting:
+      name: "${name} output current setting"
+    output_current:
+      name: "${name} output current"
+    vehicle_status_code:
+      name: "${name} vehicle status code"
+    cable_limit_detected:
+      name: "${name} cable limit detected"
+    last_command_bitmask:
+      name: "${name} last command bitmask"
+    firmware_version:
+      name: "${name} firmware version"
+    operation_mode_code:
+      name: "${name} operation mode code"
+    error_bitmask:
+      name: "${name} error bitmask"
+    error_timeout_countdown:
+      name: "${name} error timeout countdown"
+    self_test_timeout_countdown:
+      name: "${name} self-test timeout countdown"
+
+text_sensor:
+  - platform: evse_wallbox
+    vehicle_status:
+      name: "${name} vehicle status"
+    last_command:
+      name: "${name} last command"
+    operation_mode:
+      name: "${name} operation mode"
+    errors:
+      name: "${name} errors"
