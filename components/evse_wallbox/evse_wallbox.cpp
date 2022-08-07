@@ -79,12 +79,16 @@ void EvseWallbox::on_config_data_(const std::vector<uint8_t> &data) {
   // *Data*
   //
   // Register  Byte   Address Content: Description                      Decoded content               Coeff./Unit
-  //   2000      0    0xFF 0xFF        Default current                                                1.0 A
-  ESP_LOGI(TAG, "  Default current: %d A", evse_get_16bit(0));
+  //   2000      0    0xFF 0xFF        Output current default                                         1.0 A
+  ESP_LOGI(TAG, "  Output current default: %d A", evse_get_16bit(0));
+  this->publish_state_(this->output_current_default_number_, evse_get_16bit(0));
+
   //   2001      2    0x00 0xFF        Modbus address
   ESP_LOGI(TAG, "  Modbus address: %d", data[3]);
-  //   2002      4    0xFF 0xFF        Minimum current                                                1.0 A
-  ESP_LOGI(TAG, "  Minimum current: %d A", evse_get_16bit(4));
+  //   2002      4    0xFF 0xFF        Minimum charging current                                       1.0 A
+  ESP_LOGI(TAG, "  Minimum charging current: %d A", evse_get_16bit(4));
+  this->publish_state_(this->min_charging_current_number_, evse_get_16bit(4));
+
   //   2003      6    0xFF 0xFF        Analog input config
   ESP_LOGI(TAG, "  Analog input config: %d", evse_get_16bit(6));
   //   2004      8    0xFF 0xFF        Save current on button press
@@ -149,6 +153,7 @@ void EvseWallbox::on_status_data_(const std::vector<uint8_t> &data) {
   // Register  Byte   Address Content: Description                      Decoded content               Coeff./Unit
   //   1000      0    0xFF 0xFF        Current setting                                                1.0 A
   this->publish_state_(this->output_current_setting_sensor_, evse_get_16bit(0));
+  this->publish_state_(this->output_current_setting_number_, evse_get_16bit(0));
 
   //   1001      2    0xFF 0xFF        Output current (PWM driver output)                             1.0 A
   this->publish_state_(this->output_current_sensor_, evse_get_16bit(2));

@@ -33,8 +33,14 @@ class EvseWallbox : public PollingComponent, public modbus::ModbusDevice {
     rcd_check_error_binary_sensor_ = rcd_check_error_binary_sensor;
   }
 
-  void set_voltage_setting_number(number::Number *voltage_setting_number) {
-    voltage_setting_number_ = voltage_setting_number;
+  void set_output_current_setting_number(number::Number *output_current_setting_number) {
+    output_current_setting_number_ = output_current_setting_number;
+  }
+  void set_output_current_default_number(number::Number *output_current_default_number) {
+    output_current_default_number_ = output_current_default_number;
+  }
+  void set_min_charging_current_number(number::Number *min_charging_current_number) {
+    min_charging_current_number_ = min_charging_current_number;
   }
 
   void set_output_current_setting_sensor(sensor::Sensor *output_current_setting_sensor) {
@@ -77,7 +83,7 @@ class EvseWallbox : public PollingComponent, public modbus::ModbusDevice {
   }
   void set_errors_text_sensor(text_sensor::TextSensor *errors_text_sensor) { errors_text_sensor_ = errors_text_sensor; }
 
-  void set_output_switch(switch_::Switch *output_switch) { output_switch_ = output_switch; }
+  void set_charging_switch(switch_::Switch *charging_switch) { charging_switch_ = charging_switch; }
 
   void set_enable_fake_traffic(bool enable_fake_traffic) { enable_fake_traffic_ = enable_fake_traffic; }
 
@@ -97,7 +103,9 @@ class EvseWallbox : public PollingComponent, public modbus::ModbusDevice {
   binary_sensor::BinarySensor *rcd_test_in_progress_binary_sensor_;
   binary_sensor::BinarySensor *rcd_check_error_binary_sensor_;
 
-  number::Number *voltage_setting_number_;
+  number::Number *output_current_setting_number_;
+  number::Number *output_current_default_number_;
+  number::Number *min_charging_current_number_;
 
   sensor::Sensor *output_current_setting_sensor_;
   sensor::Sensor *output_current_sensor_;
@@ -110,7 +118,7 @@ class EvseWallbox : public PollingComponent, public modbus::ModbusDevice {
   sensor::Sensor *error_timeout_countdown_sensor_;
   sensor::Sensor *self_test_timeout_countdown_sensor_;
 
-  switch_::Switch *output_switch_;
+  switch_::Switch *charging_switch_;
 
   text_sensor::TextSensor *vehicle_status_text_sensor_;
   text_sensor::TextSensor *last_command_text_sensor_;

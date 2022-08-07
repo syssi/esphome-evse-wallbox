@@ -55,6 +55,24 @@ binary_sensor:
     rcd_check_error:
       name: "${name} rcd check error"
 
+button:
+  - platform: evse_wallbox
+    turn_off_charging:
+      name: "${name} turn off charging"
+    start_self_test:
+      name: "${name} start self-test"
+    clear_rcd_error:
+      name: "${name} clear rcd error"
+
+number:
+  - platform: evse_wallbox
+    output_current_setting:
+      name: "${name} output current setting"
+    output_current_default:
+      name: "${name} output current default"
+    min_charging_current:
+      name: "${name} minimum charging current"
+
 sensor:
   - platform: evse_wallbox
     output_current_setting:
@@ -77,6 +95,12 @@ sensor:
       name: "${name} error timeout countdown"
     self_test_timeout_countdown:
       name: "${name} self-test timeout countdown"
+
+# Not implemented/tested yet
+# switch:
+#   - platform: evse_wallbox
+#     charging:
+#       name: "${name} charging"
 
 text_sensor:
   - platform: evse_wallbox
