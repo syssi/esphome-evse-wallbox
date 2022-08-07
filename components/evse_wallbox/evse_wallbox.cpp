@@ -26,12 +26,22 @@ static const char *const VEHICLE_STATES[VEHICLE_STATES_SIZE] = {
     "Error",                      // 0x05
 };
 
-static const uint8_t EVSE_STATES_SIZE = 4;
-static const char *const EVSE_STATES[EVSE_STATES_SIZE] = {
-    "",     // 0x00
-    "12V",  // 0x01
-    "PWM",  // 0x02
-    "Off",  // 0x03
+static const uint8_t OPERATION_MODES_SIZE = 4;
+static const char *const OPERATION_MODES[OPERATION_MODES_SIZE] = {
+    "",         // 0x00
+    "12V",      // 0x01
+    "PWM",      // 0x02
+    "Standby",  // 0x03
+};
+
+static const uint8_t ERRORS_SIZE = 6;
+static const char *const ERRORS[ERRORS_SIZE] = {
+    "Relay on",                                          // 1
+    "Diode check failed",                                // 2
+    "Ventilation failed",                                // 4
+    "Waiting for pilot release (error recovery delay)",  // 8
+    "RCD test in progress",                              // 16
+    "RCD check error",                                   // 32
 };
 
 void EvseWallbox::on_modbus_data(const std::vector<uint8_t> &data) {
@@ -138,55 +148,62 @@ void EvseWallbox::on_status_data_(const std::vector<uint8_t> &data) {
   //
   // Register  Byte   Address Content: Description                      Decoded content               Coeff./Unit
   //   1000      0    0xFF 0xFF        Current setting                                                1.0 A
-  ESP_LOGI(TAG, "  Current setting: %d A", evse_get_16bit(0));
+  this->publish_state_(this->output_current_setting_sensor_, evse_get_16bit(0));
 
   //   1001      2    0xFF 0xFF        Output current (PWM driver output)                             1.0 A
-  ESP_LOGI(TAG, "  Output Current (PWM driver): %d A", evse_get_16bit(2));
+  this->publish_state_(this->output_current_sensor_, evse_get_16bit(2));
 
   //   1002      4    0xFF 0xFF        Vehicle state
   uint16_t raw_vehicle_state = evse_get_16bit(4);
+  this->publish_state_(this->vehicle_status_code_sensor_, evse_get_16bit(4));
   if (raw_vehicle_state < VEHICLE_STATES_SIZE) {
-    ESP_LOGI(TAG, "  Vehicle state: %s (%d)", VEHICLE_STATES[raw_vehicle_state], raw_vehicle_state);
+    this->publish_state_(this->vehicle_status_text_sensor_, VEHICLE_STATES[raw_vehicle_state]);
   } else {
-    ESP_LOGI(TAG, "  Vehicle state: %s (%d)", "Unknown", raw_vehicle_state);
+    this->publish_state_(this->vehicle_status_text_sensor_, "Unknown");
   }
 
   //   1003      6    0xFF 0xFF        Cable limit detected                                           1.0 A
-  ESP_LOGI(TAG, "  Cable limit detected: %d A", evse_get_16bit(6));
+  this->publish_state_(this->cable_limit_detected_sensor_, evse_get_16bit(6));
 
   //   1004      8    0xFF 0xFF        Command bitmask
-  uint16_t raw_command_bitmask = evse_get_16bit(8);
-  ESP_LOGI(TAG, "  Command bitmask: %d", raw_command_bitmask);
-  ESP_LOGI(TAG, "    Turn off charging now: %s", YESNO(check_bit_(raw_command_bitmask, 1)));
-  ESP_LOGI(TAG, "    Run RCD test procedure: %s", YESNO(check_bit_(raw_command_bitmask, 2)));
-  ESP_LOGI(TAG, "    Clear RCD error: %s", YESNO(check_bit_(raw_command_bitmask, 4)));
+  uint16_t raw_last_command_bitmask = evse_get_16bit(8);
+  this->publish_state_(this->last_command_bitmask_sensor_, raw_last_command_bitmask);
+  // @TODO: Decode bitmask
+  // this->publish_state_(this->last_command_text_sensor_, raw_last_command_bitmask);
+  ESP_LOGI(TAG, "  Command bitmask: %d", raw_last_command_bitmask);
+  ESP_LOGI(TAG, "    Turn off charging now: %s", YESNO(check_bit_(raw_last_command_bitmask, 1)));
+  ESP_LOGI(TAG, "    Run RCD test procedure: %s", YESNO(check_bit_(raw_last_command_bitmask, 2)));
+  ESP_LOGI(TAG, "    Clear RCD error: %s", YESNO(check_bit_(raw_last_command_bitmask, 4)));
 
   //  1005      10    0xFF 0xFF        Firmware version                                               1.0
-  ESP_LOGI(TAG, "  Firmware version: %d", evse_get_16bit(10));
+  this->publish_state_(this->firmware_version_sensor_, evse_get_16bit(10) * 0.1f);
 
   //  1006      12    0xFF 0xFF        EVSE state                                                     1.0
   uint16_t raw_evse_state = evse_get_16bit(12);
-  if (raw_evse_state < EVSE_STATES_SIZE) {
-    ESP_LOGI(TAG, "  EVSE state: %s (%d)", EVSE_STATES[raw_evse_state], raw_evse_state);
+  this->publish_state_(this->operation_mode_code_sensor_, raw_evse_state);
+  if (raw_evse_state < OPERATION_MODES_SIZE) {
+    this->publish_state_(this->operation_mode_text_sensor_, OPERATION_MODES[raw_evse_state]);
   } else {
-    ESP_LOGI(TAG, "  EVSE state: %s (%d)", "Unknown", raw_evse_state);
+    this->publish_state_(this->operation_mode_text_sensor_, "Unknown");
   }
 
   //  1007      14    0xFF 0xFF        Status and errors bitmask
-  uint16_t raw_status_bitmask = evse_get_16bit(14);
-  ESP_LOGI(TAG, "  Status and errors bitmask: %d", raw_status_bitmask);
-  ESP_LOGI(TAG, "    Relay on: %s", YESNO(check_bit_(raw_status_bitmask, 1)));
-  ESP_LOGI(TAG, "    Diode check failed: %s", YESNO(check_bit_(raw_status_bitmask, 2)));
-  ESP_LOGI(TAG, "    Ventilation failed: %s", YESNO(check_bit_(raw_status_bitmask, 4)));
-  ESP_LOGI(TAG, "    Waiting for pilot release (err recovery delay): %s", YESNO(check_bit_(raw_status_bitmask, 8)));
-  ESP_LOGI(TAG, "    RCD test in progress: %s", YESNO(check_bit_(raw_status_bitmask, 16)));
-  ESP_LOGI(TAG, "    RCD check error: %s", YESNO(check_bit_(raw_status_bitmask, 32)));
+  uint16_t raw_error_bitmask = evse_get_16bit(14);
+  this->publish_state_(this->error_bitmask_sensor_, raw_error_bitmask);
+  this->publish_state_(this->errors_text_sensor_, error_bits_to_string_(raw_error_bitmask & ~(1 << 0)));
+
+  this->publish_state_(this->relay_binary_sensor_, check_bit_(raw_error_bitmask, 1));
+  this->publish_state_(this->diode_check_failed_binary_sensor_, check_bit_(raw_error_bitmask, 2));
+  this->publish_state_(this->ventilation_failed_binary_sensor_, check_bit_(raw_error_bitmask, 4));
+  this->publish_state_(this->waiting_for_pilot_release_binary_sensor_, check_bit_(raw_error_bitmask, 8));
+  this->publish_state_(this->rcd_test_in_progress_binary_sensor_, check_bit_(raw_error_bitmask, 16));
+  this->publish_state_(this->rcd_check_error_binary_sensor_, check_bit_(raw_error_bitmask, 32));
 
   //  1008      16    0xFF 0xFF        Error timeout countdown                                        1.0
-  ESP_LOGI(TAG, "  Error timeout countdown: %d", evse_get_16bit(16));
+  this->publish_state_(this->error_timeout_countdown_sensor_, evse_get_16bit(16));
 
   //  1009      18    0xFF 0xFF        Self-test timeout countdown                                     1.0
-  ESP_LOGI(TAG, "  Self-test timeout countdown: %d", evse_get_16bit(18));
+  this->publish_state_(this->self_test_timeout_countdown_sensor_, evse_get_16bit(18));
 }
 
 void EvseWallbox::update() {
@@ -254,6 +271,26 @@ void EvseWallbox::publish_state_(switch_::Switch *obj, const bool &state) {
 void EvseWallbox::dump_config() {  // NOLINT(google-readability-function-size,readability-function-size)
   ESP_LOGCONFIG(TAG, "EvseWallbox:");
   ESP_LOGCONFIG(TAG, "  Address: 0x%02X", this->address_);
+}
+
+std::string EvseWallbox::error_bits_to_string_(const uint16_t mask) {
+  bool first = true;
+  std::string errors_list = "";
+
+  if (mask) {
+    for (int i = 0; i < ERRORS_SIZE; i++) {
+      if (mask & (1 << i)) {
+        if (first) {
+          first = false;
+        } else {
+          errors_list.append(";");
+        }
+        errors_list.append(ERRORS[i]);
+      }
+    }
+  }
+
+  return errors_list;
 }
 
 }  // namespace evse_wallbox

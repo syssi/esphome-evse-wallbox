@@ -9,20 +9,42 @@ DEPENDENCIES = ["evse_wallbox"]
 
 CODEOWNERS = ["@syssi"]
 
-CONF_PROTECTION_STATUS = "protection_status"
-
-ICON_PROTECTION_STATUS = "mdi:heart-pulse"
+CONF_VEHICLE_STATUS = "vehicle_status"
+CONF_LAST_COMMAND = "last_command"
+CONF_OPERATION_MODE = "operation_mode"
+CONF_ERRORS = "errors"
 
 TEXT_SENSORS = [
-    CONF_PROTECTION_STATUS,
+    CONF_VEHICLE_STATUS,
+    CONF_LAST_COMMAND,
+    CONF_OPERATION_MODE,
+    CONF_ERRORS,
 ]
 
 CONFIG_SCHEMA = EVSE_WALLBOX_COMPONENT_SCHEMA.extend(
     {
-        cv.Optional(CONF_PROTECTION_STATUS): text_sensor.TEXT_SENSOR_SCHEMA.extend(
+        cv.Optional(CONF_VEHICLE_STATUS): text_sensor.TEXT_SENSOR_SCHEMA.extend(
             {
                 cv.GenerateID(): cv.declare_id(text_sensor.TextSensor),
-                cv.Optional(CONF_ICON, default=ICON_PROTECTION_STATUS): cv.icon,
+                cv.Optional(CONF_ICON, default="mdi:car-electric"): cv.icon,
+            }
+        ),
+        cv.Optional(CONF_LAST_COMMAND): text_sensor.TEXT_SENSOR_SCHEMA.extend(
+            {
+                cv.GenerateID(): cv.declare_id(text_sensor.TextSensor),
+                cv.Optional(CONF_ICON, default="mdi:remote"): cv.icon,
+            }
+        ),
+        cv.Optional(CONF_OPERATION_MODE): text_sensor.TEXT_SENSOR_SCHEMA.extend(
+            {
+                cv.GenerateID(): cv.declare_id(text_sensor.TextSensor),
+                cv.Optional(CONF_ICON, default="mdi:pulse"): cv.icon,
+            }
+        ),
+        cv.Optional(CONF_ERRORS): text_sensor.TEXT_SENSOR_SCHEMA.extend(
+            {
+                cv.GenerateID(): cv.declare_id(text_sensor.TextSensor),
+                cv.Optional(CONF_ICON, default="mdi:alert-circle"): cv.icon,
             }
         ),
     }
