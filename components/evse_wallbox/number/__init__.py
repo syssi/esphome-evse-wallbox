@@ -54,18 +54,23 @@ CONFIG_SCHEMA = EVSE_WALLBOX_COMPONENT_SCHEMA.extend(
             {
                 cv.Optional(CONF_MIN_VALUE, default=0.0): cv.float_,
                 cv.Optional(CONF_MAX_VALUE, default=80.0): cv.float_,
+                cv.Optional(CONF_ICON, default="mdi:battery-charging-90"): number.icon,
             }
         ),
         cv.Optional(CONF_OUTPUT_CURRENT_DEFAULT): EVSE_NUMBER_SCHEMA.extend(
             {
                 cv.Optional(CONF_MIN_VALUE, default=6.0): cv.float_,
                 cv.Optional(CONF_MAX_VALUE, default=80.0): cv.float_,
+                cv.Optional(CONF_ICON, default="mdi:restart"): number.icon,
             }
         ),
         cv.Optional(CONF_MIN_CHARGING_CURRENT): EVSE_NUMBER_SCHEMA.extend(
             {
                 cv.Optional(CONF_MIN_VALUE, default=0.0): cv.float_,
                 cv.Optional(CONF_MAX_VALUE, default=13.0): cv.float_,
+                cv.Optional(
+                    CONF_ICON, default="mdi:battery-heart-variant"
+                ): number.icon,
             }
         ),
     }
