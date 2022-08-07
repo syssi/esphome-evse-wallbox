@@ -96,6 +96,7 @@ sensor:
     self_test_timeout_countdown:
       name: "${name} self-test timeout countdown"
 
+# Not implemented/tested yet
 # switch:
 #   - platform: evse_wallbox
 #     charging:
