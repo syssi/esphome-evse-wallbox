@@ -5,8 +5,8 @@ from esphome.const import (
     CONF_ENTITY_CATEGORY,
     CONF_ICON,
     CONF_ID,
-    CONF_OUTPUT,
     ENTITY_CATEGORY_CONFIG,
+    ICON_EMPTY,
 )
 
 from .. import CONF_EVSE_WALLBOX_ID, EVSE_WALLBOX_COMPONENT_SCHEMA, evse_wallbox_ns
@@ -15,23 +15,20 @@ DEPENDENCIES = ["evse_wallbox"]
 
 CODEOWNERS = ["@syssi"]
 
-# CONF_OUTPUT from const
-
-ICON_OUTPUT = "mdi:power"
-ICON_KEY_LOCK = "mdi:play-box-lock-outline"
+CONF_CHARGING = "charging"
 
 SWITCHES = {
-    CONF_OUTPUT: 0x0009,
+    CONF_CHARGING: 2005,
 }
 
 EvseSwitch = evse_wallbox_ns.class_("EvseSwitch", switch.Switch, cg.Component)
 
 CONFIG_SCHEMA = EVSE_WALLBOX_COMPONENT_SCHEMA.extend(
     {
-        cv.Optional(CONF_OUTPUT): switch.SWITCH_SCHEMA.extend(
+        cv.Optional(CONF_CHARGING): switch.SWITCH_SCHEMA.extend(
             {
                 cv.GenerateID(): cv.declare_id(EvseSwitch),
-                cv.Optional(CONF_ICON, default=ICON_OUTPUT): switch.icon,
+                cv.Optional(CONF_ICON, default=ICON_EMPTY): switch.icon,
                 cv.Optional(
                     CONF_ENTITY_CATEGORY, default=ENTITY_CATEGORY_CONFIG
                 ): cv.entity_category,
