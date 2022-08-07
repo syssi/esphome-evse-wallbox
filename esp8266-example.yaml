@@ -71,7 +71,7 @@ number:
     output_current_default:
       name: "${name} output current default"
     min_charging_current:
-      name: "${name} min charging current"
+      name: "${name} minimum charging current"
 
 sensor:
   - platform: evse_wallbox
