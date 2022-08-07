@@ -10,7 +10,8 @@ ESPHome component to monitor and control a EVSE wallbox via RS485 (Modbus).
 
 ## Supported devices
 
-TBD.
+* EVSE Wallbox
+* EVSE DIN
 
 ## Schematics
 
