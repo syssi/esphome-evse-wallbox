@@ -122,7 +122,7 @@ class EvseWallbox : public PollingComponent, public modbus::ModbusDevice {
   void update() override;
 
   void write_register(uint16_t address, uint16_t value);
-  void write_config_bits(uint16_t mask);
+  void write_config_bits(uint16_t mask, bool state);
 
  protected:
   binary_sensor::BinarySensor *relay_binary_sensor_;
