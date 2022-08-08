@@ -1,5 +1,6 @@
 substitutions:
   name: evse-wallbox
+  config_name: "${name} config"
   external_components_source: github://syssi/esphome-evse-wallbox@main
   tx_pin: GPIO4
   rx_pin: GPIO5
@@ -96,11 +97,28 @@ sensor:
     self_test_timeout_countdown:
       name: "${name} self-test timeout countdown"
 
-# Not implemented/tested yet
-# switch:
-#   - platform: evse_wallbox
-#     charging:
-#       name: "${name} charging"
+switch:
+  - platform: evse_wallbox
+    current_change_by_button:
+      name: "${config_name} current change by button"
+    stop_charging_on_button_press:
+      name: "${config_name} stop charging on button press"
+    pilot_ready_state_led_always_on:
+      name: "${config_name} pilot ready state led always on"
+    charging_of_vehicle_status_d:
+      name: "${config_name} charging of vehicle status d"
+    rcd_feedback_on_mclr_pin:
+      name: "${config_name} rcd feedback on mclr pin"
+    auto_clear_rcd_error:
+      name: "${config_name} auto clear rcd error"
+    an_internal_pullup:
+      name: "${config_name} an internal pullup"
+    disable_evse_after_charge:
+      name: "${config_name} disable evse after charge"
+    disable_evse:
+      name: "${config_name} disable evse"
+    bootloader_mode:
+      name: "${config_name} bootloader mode"
 
 text_sensor:
   - platform: evse_wallbox

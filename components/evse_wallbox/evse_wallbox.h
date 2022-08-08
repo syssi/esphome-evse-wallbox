@@ -83,7 +83,34 @@ class EvseWallbox : public PollingComponent, public modbus::ModbusDevice {
   }
   void set_errors_text_sensor(text_sensor::TextSensor *errors_text_sensor) { errors_text_sensor_ = errors_text_sensor; }
 
-  void set_charging_switch(switch_::Switch *charging_switch) { charging_switch_ = charging_switch; }
+  void set_current_change_by_button_switch(switch_::Switch *current_change_by_button_switch) {
+    current_change_by_button_switch_ = current_change_by_button_switch;
+  }
+  void set_stop_charging_on_button_press_switch(switch_::Switch *stop_charging_on_button_press_switch) {
+    stop_charging_on_button_press_switch_ = stop_charging_on_button_press_switch;
+  }
+  void set_pilot_ready_state_led_always_on_switch(switch_::Switch *pilot_ready_state_led_always_on_switch) {
+    pilot_ready_state_led_always_on_switch_ = pilot_ready_state_led_always_on_switch;
+  }
+  void set_charging_of_vehicle_status_d_switch(switch_::Switch *charging_of_vehicle_status_d_switch) {
+    charging_of_vehicle_status_d_switch_ = charging_of_vehicle_status_d_switch;
+  }
+  void set_rcd_feedback_on_mclr_pin_switch(switch_::Switch *rcd_feedback_on_mclr_pin_switch) {
+    rcd_feedback_on_mclr_pin_switch_ = rcd_feedback_on_mclr_pin_switch;
+  }
+  void set_auto_clear_rcd_error_switch(switch_::Switch *auto_clear_rcd_error_switch) {
+    auto_clear_rcd_error_switch_ = auto_clear_rcd_error_switch;
+  }
+  void set_an_internal_pullup_switch(switch_::Switch *an_internal_pullup_switch) {
+    an_internal_pullup_switch_ = an_internal_pullup_switch;
+  }
+  void set_disable_evse_after_charge_switch(switch_::Switch *disable_evse_after_charge_switch) {
+    disable_evse_after_charge_switch_ = disable_evse_after_charge_switch;
+  }
+  void set_disable_evse_switch(switch_::Switch *disable_evse_switch) { disable_evse_switch_ = disable_evse_switch; }
+  void set_bootloader_mode_switch(switch_::Switch *bootloader_mode_switch) {
+    bootloader_mode_switch_ = bootloader_mode_switch;
+  }
 
   void set_enable_fake_traffic(bool enable_fake_traffic) { enable_fake_traffic_ = enable_fake_traffic; }
 
@@ -118,7 +145,16 @@ class EvseWallbox : public PollingComponent, public modbus::ModbusDevice {
   sensor::Sensor *error_timeout_countdown_sensor_;
   sensor::Sensor *self_test_timeout_countdown_sensor_;
 
-  switch_::Switch *charging_switch_;
+  switch_::Switch *current_change_by_button_switch_;
+  switch_::Switch *stop_charging_on_button_press_switch_;
+  switch_::Switch *pilot_ready_state_led_always_on_switch_;
+  switch_::Switch *charging_of_vehicle_status_d_switch_;
+  switch_::Switch *rcd_feedback_on_mclr_pin_switch_;
+  switch_::Switch *auto_clear_rcd_error_switch_;
+  switch_::Switch *an_internal_pullup_switch_;
+  switch_::Switch *disable_evse_after_charge_switch_;
+  switch_::Switch *disable_evse_switch_;
+  switch_::Switch *bootloader_mode_switch_;
 
   text_sensor::TextSensor *vehicle_status_text_sensor_;
   text_sensor::TextSensor *last_command_text_sensor_;
