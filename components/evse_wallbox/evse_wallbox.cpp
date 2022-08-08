@@ -240,15 +240,15 @@ void EvseWallbox::write_register(uint16_t address, uint16_t value) {
   this->send(FUNCTION_WRITE_MULTIPLE_REGISTERS, address, 0x0001, sizeof(payload), payload);
 }
 
-void EvseWallbox::write_config_bits(uint16_t mask, bool state) {
-  uint16_t payload = 0x00;
-
+void EvseWallbox::write_config_bits(uint16_t bit_field, bool state) {
   if (!this->config_bits_retrieved_) {
     ESP_LOGI(TAG, "No settings frame received yet. Unable to apply new settings.");
     return;
   }
 
-  this->write_register(2005, state ? this->config_bits_ | mask : this->config_bits_ & ~mask);
+  uint16_t payload = state ? this->config_bits_ | bit_field : this->config_bits_ & ~bit_field;
+  this->write_register(2005, payload);
+  this->config_bits_ = payload;
 }
 
 void EvseWallbox::publish_state_(binary_sensor::BinarySensor *binary_sensor, const bool &state) {

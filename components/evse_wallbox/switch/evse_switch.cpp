@@ -10,7 +10,7 @@ static const char *const TAG = "evse_wallbox.switch";
 void EvseSwitch::dump_config() { LOG_SWITCH("", "EvseWallbox Switch", this); }
 void EvseSwitch::write_state(bool state) {
   if (this->holding_register_ == 2005) {
-    this->parent_->write_config_bits(this->holding_register_, state);
+    this->parent_->write_config_bits(this->bit_field_, state);
     return;
   }
 
