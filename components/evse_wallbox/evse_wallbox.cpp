@@ -95,17 +95,19 @@ void EvseWallbox::on_config_data_(const std::vector<uint8_t> &data) {
   ESP_LOGI(TAG, "  Save current on button press: %d", evse_get_16bit(8));
   //   2005     10    0xFF 0xFF        Config bits
   uint16_t raw_config_bits = evse_get_16bit(10);
-  ESP_LOGI(TAG, "  Config bits: %d", raw_config_bits);
-  ESP_LOGI(TAG, "    Enable button for current change: %s", YESNO(check_bit_(raw_config_bits, 1)));
-  ESP_LOGI(TAG, "    Stop charging when button pressed: %s", YESNO(check_bit_(raw_config_bits, 2)));
-  ESP_LOGI(TAG, "    Pilot ready state LED always on: %s", YESNO(check_bit_(raw_config_bits, 4)));
-  ESP_LOGI(TAG, "    Enable charging on vehicle status D: %s", YESNO(check_bit_(raw_config_bits, 8)));
-  ESP_LOGI(TAG, "    Enable RCD feedback on MCLR pin (pin 4): %s", YESNO(check_bit_(raw_config_bits, 16)));
-  ESP_LOGI(TAG, "    Auto clear RCD error: %s", YESNO(check_bit_(raw_config_bits, 32)));
-  ESP_LOGI(TAG, "    AN internal pull-up enabled: %s", YESNO(check_bit_(raw_config_bits, 64)));
-  ESP_LOGI(TAG, "    Disable EVSE after charge: %s", YESNO(check_bit_(raw_config_bits, 8192)));
-  ESP_LOGI(TAG, "    Disable EVSE: %s", YESNO(check_bit_(raw_config_bits, 16384)));
-  ESP_LOGI(TAG, "    Bootloader mode enabled: %s", YESNO(check_bit_(raw_config_bits, 32768)));
+  this->config_bits_ = raw_config_bits;
+  this->config_bits_retrieved_ = true;
+  this->publish_state_(this->config_bits_sensor_, raw_config_bits);
+  this->publish_state_(this->current_change_by_button_switch_, check_bit_(raw_config_bits, 1));
+  this->publish_state_(this->stop_charging_on_button_press_switch_, check_bit_(raw_config_bits, 2));
+  this->publish_state_(this->pilot_ready_state_led_always_on_switch_, check_bit_(raw_config_bits, 4));
+  this->publish_state_(this->charging_of_vehicle_status_d_switch_, check_bit_(raw_config_bits, 8));
+  this->publish_state_(this->rcd_feedback_on_mclr_pin_switch_, check_bit_(raw_config_bits, 16));
+  this->publish_state_(this->auto_clear_rcd_error_switch_, check_bit_(raw_config_bits, 32));
+  this->publish_state_(this->an_internal_pullup_switch_, check_bit_(raw_config_bits, 64));
+  this->publish_state_(this->disable_evse_after_charge_switch_, check_bit_(raw_config_bits, 8192));
+  this->publish_state_(this->disable_evse_switch_, check_bit_(raw_config_bits, 16384));
+  this->publish_state_(this->bootloader_mode_switch_, check_bit_(raw_config_bits, 32768));
 
   //   2006     12    0xFF 0xFF        Current sharing mode
   //   2007     14    0xFF 0xFF        PP detection limit                                             1.0 A
@@ -236,6 +238,17 @@ void EvseWallbox::write_register(uint16_t address, uint16_t value) {
   payload[0] = value >> 8;
   payload[1] = value & 0xff;
   this->send(FUNCTION_WRITE_MULTIPLE_REGISTERS, address, 0x0001, sizeof(payload), payload);
+}
+
+void EvseWallbox::write_config_bits(uint16_t bit_field, bool state) {
+  if (!this->config_bits_retrieved_) {
+    ESP_LOGI(TAG, "No settings frame received yet. Unable to apply new settings.");
+    return;
+  }
+
+  uint16_t payload = state ? this->config_bits_ | bit_field : this->config_bits_ & ~bit_field;
+  this->write_register(2005, payload);
+  this->config_bits_ = payload;
 }
 
 void EvseWallbox::publish_state_(binary_sensor::BinarySensor *binary_sensor, const bool &state) {

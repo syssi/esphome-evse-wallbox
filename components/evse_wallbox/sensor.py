@@ -26,6 +26,7 @@ CONF_OPERATION_MODE_CODE = "operation_mode_code"
 CONF_ERROR_BITMASK = "error_bitmask"
 CONF_ERROR_TIMEOUT_COUNTDOWN = "error_timeout_countdown"
 CONF_SELF_TEST_TIMEOUT_COUNTDOWN = "self_test_timeout_countdown"
+CONF_CONFIG_BITS = "config_bits"
 
 SENSORS = [
     CONF_OUTPUT_CURRENT_SETTING,
@@ -38,6 +39,7 @@ SENSORS = [
     CONF_ERROR_BITMASK,
     CONF_ERROR_TIMEOUT_COUNTDOWN,
     CONF_SELF_TEST_TIMEOUT_COUNTDOWN,
+    CONF_CONFIG_BITS,
 ]
 
 # pylint: disable=too-many-function-args
@@ -109,6 +111,13 @@ CONFIG_SCHEMA = EVSE_WALLBOX_COMPONENT_SCHEMA.extend(
         cv.Optional(CONF_SELF_TEST_TIMEOUT_COUNTDOWN): sensor.sensor_schema(
             unit_of_measurement=UNIT_EMPTY,
             icon="mdi:timer-remove-outline",
+            accuracy_decimals=0,
+            device_class=DEVICE_CLASS_EMPTY,
+            state_class=STATE_CLASS_MEASUREMENT,
+        ),
+        cv.Optional(CONF_CONFIG_BITS): sensor.sensor_schema(
+            unit_of_measurement=UNIT_EMPTY,
+            icon="mdi:cog",
             accuracy_decimals=0,
             device_class=DEVICE_CLASS_EMPTY,
             state_class=STATE_CLASS_MEASUREMENT,
