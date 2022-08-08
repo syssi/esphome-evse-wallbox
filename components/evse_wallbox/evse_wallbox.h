@@ -122,6 +122,7 @@ class EvseWallbox : public PollingComponent, public modbus::ModbusDevice {
   void update() override;
 
   void write_register(uint16_t address, uint16_t value);
+  void write_config_bits(uint16_t mask);
 
  protected:
   binary_sensor::BinarySensor *relay_binary_sensor_;
@@ -163,6 +164,9 @@ class EvseWallbox : public PollingComponent, public modbus::ModbusDevice {
   text_sensor::TextSensor *operation_mode_text_sensor_;
   text_sensor::TextSensor *errors_text_sensor_;
 
+  uint16_t config_bits_ = 0x0000;
+
+  bool config_bits_retrieved_{false};
   bool enable_fake_traffic_;
   bool request_config_{true};
   bool check_bit_(uint16_t mask, uint16_t flag) { return (mask & flag) == flag; }

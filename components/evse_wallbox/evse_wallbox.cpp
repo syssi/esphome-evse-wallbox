@@ -95,6 +95,8 @@ void EvseWallbox::on_config_data_(const std::vector<uint8_t> &data) {
   ESP_LOGI(TAG, "  Save current on button press: %d", evse_get_16bit(8));
   //   2005     10    0xFF 0xFF        Config bits
   uint16_t raw_config_bits = evse_get_16bit(10);
+  this->config_bits_ = raw_config_bits;
+  this->config_bits_retrieved_ = true;
   this->publish_state_(this->config_bits_sensor_, raw_config_bits);
   this->publish_state_(this->current_change_by_button_switch_, check_bit_(raw_config_bits, 1));
   this->publish_state_(this->stop_charging_on_button_press_switch_, check_bit_(raw_config_bits, 2));
@@ -236,6 +238,17 @@ void EvseWallbox::write_register(uint16_t address, uint16_t value) {
   payload[0] = value >> 8;
   payload[1] = value & 0xff;
   this->send(FUNCTION_WRITE_MULTIPLE_REGISTERS, address, 0x0001, sizeof(payload), payload);
+}
+
+void EvseWallbox::write_config_bits(uint16_t mask, bool state) {
+  uint16_t payload = 0x00;
+
+  if (!this->config_bits_retrieved_) {
+    ESP_LOGI(TAG, "No settings frame received yet. Unable to apply new settings.");
+    return;
+  }
+
+  this->write_register(2005, state ? this->config_bits_ | mask : this->config_bits_ & ~mask);
 }
 
 void EvseWallbox::publish_state_(binary_sensor::BinarySensor *binary_sensor, const bool &state) {
