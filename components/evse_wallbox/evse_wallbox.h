@@ -71,6 +71,7 @@ class EvseWallbox : public PollingComponent, public modbus::ModbusDevice {
   void set_self_test_timeout_countdown_sensor(sensor::Sensor *self_test_timeout_countdown_sensor) {
     self_test_timeout_countdown_sensor_ = self_test_timeout_countdown_sensor;
   }
+  void set_config_bits_sensor(sensor::Sensor *config_bits_sensor) { config_bits_sensor_ = config_bits_sensor; }
 
   void set_vehicle_status_text_sensor(text_sensor::TextSensor *vehicle_status_text_sensor) {
     vehicle_status_text_sensor_ = vehicle_status_text_sensor;
@@ -144,6 +145,7 @@ class EvseWallbox : public PollingComponent, public modbus::ModbusDevice {
   sensor::Sensor *error_bitmask_sensor_;
   sensor::Sensor *error_timeout_countdown_sensor_;
   sensor::Sensor *self_test_timeout_countdown_sensor_;
+  sensor::Sensor *config_bits_sensor_;
 
   switch_::Switch *current_change_by_button_switch_;
   switch_::Switch *stop_charging_on_button_press_switch_;

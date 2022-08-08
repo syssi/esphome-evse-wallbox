@@ -96,6 +96,8 @@ sensor:
       name: "${name} error timeout countdown"
     self_test_timeout_countdown:
       name: "${name} self-test timeout countdown"
+    config_bits:
+      name: "${config_name} config bits"
 
 switch:
   - platform: evse_wallbox
