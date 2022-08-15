@@ -36,7 +36,7 @@ ooooooo
 └──────── +12V
 ```
 
-![EVSE DIN schematics](images/schematics-evse-din.png "EVSE DIN schematics")
+See also [EVSE DIN schematics photo.](images/schematics-evse-din.png "EVSE DIN schematics")
 
 ## Installation
 
