@@ -49,7 +49,60 @@ esphome run esp32-example.yaml
 ## Example response all sensors enabled
 
 ```
-TBD.
+[I][evse_wallbox:067]: Config frame received
+[I][evse_wallbox:083]:   Output current default: 32 A
+[D][number:012]: 'evse-wallbox output current default': Sending state 32.000000
+[I][evse_wallbox:087]:   Modbus address: 1
+[I][evse_wallbox:089]:   Minimum charging current: 5 A
+[D][number:012]: 'evse-wallbox minimum charging current': Sending state 5.000000
+[I][evse_wallbox:093]:   Analog input config: 1
+[I][evse_wallbox:095]:   Save current on button press: 0
+[D][sensor:124]: 'evse-wallbox config config bits': Sending state 521.00000  with 0 decimals of accuracy
+[D][switch:037]: 'evse-wallbox config current change by button': Sending state ON
+[D][switch:037]: 'evse-wallbox config stop charging on button press': Sending state OFF
+[D][switch:037]: 'evse-wallbox config pilot ready state led always on': Sending state OFF
+[D][switch:037]: 'evse-wallbox config charging of vehicle status d': Sending state ON
+[D][switch:037]: 'evse-wallbox config rcd feedback on mclr pin': Sending state OFF
+[D][switch:037]: 'evse-wallbox config auto clear rcd error': Sending state OFF
+[D][switch:037]: 'evse-wallbox config an internal pullup': Sending state OFF
+[D][switch:037]: 'evse-wallbox config disable evse after charge': Sending state OFF
+[D][switch:037]: 'evse-wallbox config disable evse': Sending state OFF
+[D][switch:037]: 'evse-wallbox config bootloader mode': Sending state OFF
+[I][evse_wallbox:114]:   PP detection limit: 0 A
+[I][evse_wallbox:117]:   Bootloader version: 3
+[I][evse_wallbox:119]:   Amps value 1: 6 A
+[I][evse_wallbox:121]:   Amps value 2: 10 A
+[I][evse_wallbox:123]:   Amps value 3: 16 A
+[I][evse_wallbox:125]:   Amps value 4: 25 A
+[I][evse_wallbox:127]:   Amps value 5: 32 A
+[I][evse_wallbox:129]:   Amps value 6: 48 A
+[I][evse_wallbox:131]:   Amps value 7: 63 A
+[I][evse_wallbox:133]:   Amps value 8: 80 A
+[I][evse_wallbox:141]: Status frame received
+[D][sensor:124]: 'evse-wallbox output current setting': Sending state 32.00000 A with 0 decimals of accuracy
+[D][number:012]: 'evse-wallbox output current setting': Sending state 32.000000
+[D][sensor:124]: 'evse-wallbox output current': Sending state 0.00000 A with 0 decimals of accuracy
+[D][sensor:124]: 'evse-wallbox vehicle status code': Sending state 1.00000  with 0 decimals of accuracy
+[D][text_sensor:067]: 'evse-wallbox vehicle status': Sending state 'Ready'
+[D][sensor:124]: 'evse-wallbox cable limit detected': Sending state 5.00000 A with 0 decimals of accuracy
+[D][sensor:124]: 'evse-wallbox last command bitmask': Sending state 0.00000  with 0 decimals of accuracy
+[I][evse_wallbox:180]:   Command bitmask: 0
+[I][evse_wallbox:181]:     Turn off charging now: NO
+[I][evse_wallbox:182]:     Run RCD test procedure: NO
+[I][evse_wallbox:183]:     Clear RCD error: NO
+[D][sensor:124]: 'evse-wallbox firmware version': Sending state 1.80000  with 1 decimals of accuracy
+[D][sensor:124]: 'evse-wallbox operation mode code': Sending state 1.00000  with 0 decimals of accuracy
+[D][text_sensor:067]: 'evse-wallbox operation mode': Sending state '12V'
+[D][sensor:124]: 'evse-wallbox error bitmask': Sending state 0.00000  with 0 decimals of accuracy
+[D][text_sensor:067]: 'evse-wallbox errors': Sending state ''
+[D][binary_sensor:036]: 'evse-wallbox relay': Sending state OFF
+[D][binary_sensor:036]: 'evse-wallbox diode check failed': Sending state OFF
+[D][binary_sensor:036]: 'evse-wallbox ventilation failed': Sending state OFF
+[D][binary_sensor:036]: 'evse-wallbox waiting for pilot release': Sending state OFF
+[D][binary_sensor:036]: 'evse-wallbox rcd test in progress': Sending state OFF
+[D][binary_sensor:036]: 'evse-wallbox rcd check error': Sending state OFF
+[D][sensor:124]: 'evse-wallbox error timeout countdown': Sending state 0.00000  with 0 decimals of accuracy
+[D][sensor:124]: 'evse-wallbox self-test timeout countdown': Sending state 0.00000  with 0 decimals of accuracy
 ```
 
 ## Known issues
