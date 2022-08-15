@@ -15,7 +15,26 @@ ESPHome component to monitor and control a EVSE wallbox via RS485 (Modbus).
 
 ## Schematics
 
-TBD.
+### EVSE DIN
+
+┌──────── 5V
+│┌───────────── GND
+││┌──────────── RX (`tx_pin: GPIO4`)
+│││┌─────────── TX (`rx_pin: GPIO5`)
+││││┌──── GND
+│││││┌─── 5V
+││││││┌── MCLR
+ooooooo
+ooooooo
+││││││└── 5V-12V
+│││││└─── GND
+││││└──── DRVEN
+│││└───── TEST
+││└────── REL
+│└─────── RC2
+└──────── +12V
+
+![EVSE DIN schematics](images/schematics-evse-din.png "EVSE DIN schematics")
 
 ## Installation
 
