@@ -1,0 +1,7 @@
+<<: !include esp32-example.yaml
+
+evse_wallbox:
+  id: evse0
+  modbus_id: modbus0
+  update_interval: 2s
+  enable_fake_traffic: true
