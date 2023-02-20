@@ -38,7 +38,7 @@ EvseNumber = evse_wallbox_ns.class_("EvseNumber", number.Number, cg.Component)
 EVSE_NUMBER_SCHEMA = number.NUMBER_SCHEMA.extend(
     {
         cv.GenerateID(): cv.declare_id(EvseNumber),
-        cv.Optional(CONF_ICON, default=ICON_EMPTY): number.icon,
+        cv.Optional(CONF_ICON, default=ICON_EMPTY): cv.icon,
         cv.Optional(CONF_STEP, default=1.0): cv.float_,
         cv.Optional(CONF_UNIT_OF_MEASUREMENT, default=UNIT_AMPERE): cv.string_strict,
         cv.Optional(CONF_MODE, default="BOX"): cv.enum(number.NUMBER_MODES, upper=True),
@@ -54,23 +54,21 @@ CONFIG_SCHEMA = EVSE_WALLBOX_COMPONENT_SCHEMA.extend(
             {
                 cv.Optional(CONF_MIN_VALUE, default=0.0): cv.float_,
                 cv.Optional(CONF_MAX_VALUE, default=80.0): cv.float_,
-                cv.Optional(CONF_ICON, default="mdi:battery-charging-90"): number.icon,
+                cv.Optional(CONF_ICON, default="mdi:battery-charging-90"): cv.icon,
             }
         ),
         cv.Optional(CONF_OUTPUT_CURRENT_DEFAULT): EVSE_NUMBER_SCHEMA.extend(
             {
                 cv.Optional(CONF_MIN_VALUE, default=6.0): cv.float_,
                 cv.Optional(CONF_MAX_VALUE, default=80.0): cv.float_,
-                cv.Optional(CONF_ICON, default="mdi:restart"): number.icon,
+                cv.Optional(CONF_ICON, default="mdi:restart"): cv.icon,
             }
         ),
         cv.Optional(CONF_MIN_CHARGING_CURRENT): EVSE_NUMBER_SCHEMA.extend(
             {
                 cv.Optional(CONF_MIN_VALUE, default=0.0): cv.float_,
                 cv.Optional(CONF_MAX_VALUE, default=13.0): cv.float_,
-                cv.Optional(
-                    CONF_ICON, default="mdi:battery-heart-variant"
-                ): number.icon,
+                cv.Optional(CONF_ICON, default="mdi:battery-heart-variant"): cv.icon,
             }
         ),
     }
