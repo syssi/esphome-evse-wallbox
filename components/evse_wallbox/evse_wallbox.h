@@ -113,8 +113,6 @@ class EvseWallbox : public PollingComponent, public modbus::ModbusDevice {
     bootloader_mode_switch_ = bootloader_mode_switch;
   }
 
-  void set_enable_fake_traffic(bool enable_fake_traffic) { enable_fake_traffic_ = enable_fake_traffic; }
-
   void dump_config() override;
 
   void on_modbus_data(const std::vector<uint8_t> &data) override;
@@ -167,7 +165,6 @@ class EvseWallbox : public PollingComponent, public modbus::ModbusDevice {
   uint16_t config_bits_ = 0x0000;
 
   bool config_bits_retrieved_{false};
-  bool enable_fake_traffic_;
   bool request_config_{true};
   bool check_bit_(uint16_t mask, uint16_t flag) { return (mask & flag) == flag; }
 
