@@ -12,7 +12,7 @@ static const uint8_t FUNCTION_WRITE_SINGLE_REGISTER = 0x06;
 static const uint8_t FUNCTION_WRITE_MULTIPLE_REGISTERS = 0x10;
 
 static const uint16_t REGISTERS_STATUS_START = 1000;
-static const uint16_t REGISTERS_STATUS_COUNT = 10;
+static const uint16_t REGISTERS_STATUS_COUNT = 8;
 static const uint16_t REGISTERS_CONFIG_START = 2000;
 static const uint16_t REGISTERS_CONFIG_COUNT = 18;
 
