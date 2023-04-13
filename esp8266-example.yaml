@@ -40,6 +40,7 @@ evse_wallbox:
   id: evse0
   modbus_id: modbus0
   update_interval: 2s
+  firmware_version: 18
 
 binary_sensor:
   - platform: evse_wallbox

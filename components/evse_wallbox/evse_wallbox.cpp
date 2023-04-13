@@ -12,7 +12,8 @@ static const uint8_t FUNCTION_WRITE_SINGLE_REGISTER = 0x06;
 static const uint8_t FUNCTION_WRITE_MULTIPLE_REGISTERS = 0x10;
 
 static const uint16_t REGISTERS_STATUS_START = 1000;
-static const uint16_t REGISTERS_STATUS_COUNT = 7;
+static const uint16_t REGISTERS_STATUS_COUNT_V15 = 7;
+static const uint16_t REGISTERS_STATUS_COUNT = 10;
 static const uint16_t REGISTERS_CONFIG_START = 2000;
 static const uint16_t REGISTERS_CONFIG_COUNT = 18;
 
@@ -194,17 +195,20 @@ void EvseWallbox::on_status_data_(const std::vector<uint8_t> &data) {
     this->publish_state_(this->operation_mode_text_sensor_, "Unknown");
   }
 
-  //  1007      14    0x00 0x00        Status and errors bitmask
-  // uint16_t raw_error_bitmask = evse_get_16bit(14);
-  // this->publish_state_(this->error_bitmask_sensor_, raw_error_bitmask);
-  // this->publish_state_(this->errors_text_sensor_, error_bits_to_string_(raw_error_bitmask & ~(1 << 0)));
+  if (data.size() <= REGISTERS_STATUS_COUNT_V15 * 2)
+    return;
 
-  // this->publish_state_(this->relay_binary_sensor_, check_bit_(raw_error_bitmask, 1));
-  // this->publish_state_(this->diode_check_failed_binary_sensor_, check_bit_(raw_error_bitmask, 2));
-  // this->publish_state_(this->ventilation_failed_binary_sensor_, check_bit_(raw_error_bitmask, 4));
-  // this->publish_state_(this->waiting_for_pilot_release_binary_sensor_, check_bit_(raw_error_bitmask, 8));
-  // this->publish_state_(this->rcd_test_in_progress_binary_sensor_, check_bit_(raw_error_bitmask, 16));
-  // this->publish_state_(this->rcd_check_error_binary_sensor_, check_bit_(raw_error_bitmask, 32));
+  //  1007      14    0x00 0x00        Status and errors bitmask
+  uint16_t raw_error_bitmask = evse_get_16bit(14);
+  this->publish_state_(this->error_bitmask_sensor_, raw_error_bitmask);
+  this->publish_state_(this->errors_text_sensor_, error_bits_to_string_(raw_error_bitmask & ~(1 << 0)));
+
+  this->publish_state_(this->relay_binary_sensor_, check_bit_(raw_error_bitmask, 1));
+  this->publish_state_(this->diode_check_failed_binary_sensor_, check_bit_(raw_error_bitmask, 2));
+  this->publish_state_(this->ventilation_failed_binary_sensor_, check_bit_(raw_error_bitmask, 4));
+  this->publish_state_(this->waiting_for_pilot_release_binary_sensor_, check_bit_(raw_error_bitmask, 8));
+  this->publish_state_(this->rcd_test_in_progress_binary_sensor_, check_bit_(raw_error_bitmask, 16));
+  this->publish_state_(this->rcd_check_error_binary_sensor_, check_bit_(raw_error_bitmask, 32));
 
   //  1008      16    0x00 0x00        Error timeout countdown                                        1.0
   this->publish_state_(this->error_timeout_countdown_sensor_, evse_get_16bit(16));
@@ -217,7 +221,8 @@ void EvseWallbox::update() {
   if (this->request_config_) {
     this->send(FUNCTION_READ_REGISTERS, REGISTERS_CONFIG_START, REGISTERS_CONFIG_COUNT);
   } else {
-    this->send(FUNCTION_READ_REGISTERS, REGISTERS_STATUS_START, REGISTERS_STATUS_COUNT);
+    this->send(FUNCTION_READ_REGISTERS, REGISTERS_STATUS_START,
+               (this->firmware_version_ <= 15) ? REGISTERS_STATUS_COUNT_V15 : REGISTERS_STATUS_COUNT);
   }
   this->request_config_ = !this->request_config_;
 }

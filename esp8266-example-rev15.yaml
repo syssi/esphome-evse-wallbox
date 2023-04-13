@@ -2,16 +2,13 @@ substitutions:
   name: evse-wallbox
   config_name: "${name} config"
   external_components_source: github://syssi/esphome-evse-wallbox@main
-  tx_pin: GPIO16
-  rx_pin: GPIO17
+  tx_pin: GPIO4
+  rx_pin: GPIO5
 
 esphome:
   name: ${name}
-
-esp32:
-  board: wemos_d1_mini32
-  framework:
-    type: esp-idf
+  platform: ESP8266
+  board: d1_mini
 
 external_components:
   - source: ${external_components_source}
@@ -43,22 +40,7 @@ evse_wallbox:
   id: evse0
   modbus_id: modbus0
   update_interval: 2s
-  firmware_version: 18
-
-binary_sensor:
-  - platform: evse_wallbox
-    relay:
-      name: "${name} relay"
-    diode_check_failed:
-      name: "${name} diode check failed"
-    ventilation_failed:
-      name: "${name} ventilation failed"
-    waiting_for_pilot_release:
-      name: "${name} waiting for pilot release"
-    rcd_test_in_progress:
-      name: "${name} rcd test in progress"
-    rcd_check_error:
-      name: "${name} rcd check error"
+  firmware_version: 15
 
 button:
   - platform: evse_wallbox
@@ -94,12 +76,6 @@ sensor:
       name: "${name} firmware version"
     operation_mode_code:
       name: "${name} operation mode code"
-    error_bitmask:
-      name: "${name} error bitmask"
-    error_timeout_countdown:
-      name: "${name} error timeout countdown"
-    self_test_timeout_countdown:
-      name: "${name} self-test timeout countdown"
     config_bits:
       name: "${config_name} config bits"
 
@@ -134,5 +110,3 @@ text_sensor:
       name: "${name} last command"
     operation_mode:
       name: "${name} operation mode"
-    errors:
-      name: "${name} errors"

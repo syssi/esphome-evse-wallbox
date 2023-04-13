@@ -113,6 +113,8 @@ class EvseWallbox : public PollingComponent, public modbus::ModbusDevice {
     bootloader_mode_switch_ = bootloader_mode_switch;
   }
 
+  void set_firmware_version(uint16_t firmware_version) { this->firmware_version_ = firmware_version; }
+
   void dump_config() override;
 
   void on_modbus_data(const std::vector<uint8_t> &data) override;
@@ -163,6 +165,7 @@ class EvseWallbox : public PollingComponent, public modbus::ModbusDevice {
   text_sensor::TextSensor *errors_text_sensor_;
 
   uint16_t config_bits_ = 0x0000;
+  uint16_t firmware_version_{0};
 
   bool config_bits_retrieved_{false};
   bool request_config_{true};
