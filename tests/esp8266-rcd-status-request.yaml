@@ -1,11 +1,15 @@
 substitutions:
-  name: evse
+  name: evse-wallbox
   device_description: "Request the RCD status register 1007 periodically"
   tx_pin: GPIO4
   rx_pin: GPIO5
 
 esphome:
   name: ${name}
+  comment: ${device_description}
+  project:
+    name: "syssi.esphome-evse-wallbox"
+    version: 1.0.0
 
 esp8266:
   board: d1_mini
@@ -18,9 +22,7 @@ api:
   reboot_timeout: 0s
 
 ota:
-
 logger:
-  level: DEBUG
 
 uart:
   id: uart0
