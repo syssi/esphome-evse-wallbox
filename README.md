@@ -152,4 +152,5 @@ uart:
 * https://github.com/kortas87/evse-scripts/
 * https://github.com/CurtRod/SimpleEVSE-WiFi/
 * http://evracing.cz/evse/evse-wallbox/
+* http://evracing.cz/evse/evse-wallbox/evse-wb-din_latest.pdf
 * https://github.com/stegm/esphome-simpleevse-config/
