@@ -111,7 +111,7 @@ esphome run esp32-example.yaml
 [I][evse_wallbox:181]:     Turn off charging now: NO
 [I][evse_wallbox:182]:     Run RCD test procedure: NO
 [I][evse_wallbox:183]:     Clear RCD error: NO
-[D][sensor:124]: 'evse-wallbox firmware version': Sending state 1.80000  with 1 decimals of accuracy
+[D][sensor:124]: 'evse-wallbox firmware version': Sending state 18.00000  with 0 decimals of accuracy
 [D][sensor:124]: 'evse-wallbox operation mode code': Sending state 1.00000  with 0 decimals of accuracy
 [D][text_sensor:067]: 'evse-wallbox operation mode': Sending state '12V'
 [D][sensor:124]: 'evse-wallbox error bitmask': Sending state 0.00000  with 0 decimals of accuracy
