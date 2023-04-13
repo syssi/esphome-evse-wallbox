@@ -20,7 +20,6 @@ EvseWallbox = evse_wallbox_ns.class_(
 EVSE_WALLBOX_COMPONENT_SCHEMA = cv.Schema(
     {
         cv.GenerateID(CONF_EVSE_WALLBOX_ID): cv.use_id(EvseWallbox),
-        cv.Optional(CONF_FIRMWARE_VERSION, default=18): cv.positive_int,
     }
 )
 
@@ -28,6 +27,7 @@ CONFIG_SCHEMA = (
     cv.Schema(
         {
             cv.GenerateID(): cv.declare_id(EvseWallbox),
+            cv.Optional(CONF_FIRMWARE_VERSION, default=18): cv.positive_int,
         }
     )
     .extend(cv.polling_component_schema("5s"))
