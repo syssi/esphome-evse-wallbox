@@ -153,14 +153,14 @@ void EvseWallbox::on_status_data_(const std::vector<uint8_t> &data) {
   // *Data*
   //
   // Register  Byte   Address Content: Description                      Decoded content               Coeff./Unit
-  //   1000      0    0xFF 0xFF        Current setting                                                1.0 A
+  //   1000      0    0x00 0x20        Current setting                                                1.0 A
   this->publish_state_(this->output_current_setting_sensor_, evse_get_16bit(0));
   this->publish_state_(this->output_current_setting_number_, evse_get_16bit(0));
 
-  //   1001      2    0xFF 0xFF        Output current (PWM driver output)                             1.0 A
+  //   1001      2    0x00 0x00        Output current (PWM driver output)                             1.0 A
   this->publish_state_(this->output_current_sensor_, evse_get_16bit(2));
 
-  //   1002      4    0xFF 0xFF        Vehicle state
+  //   1002      4    0x00 0x01        Vehicle state
   uint16_t raw_vehicle_state = evse_get_16bit(4);
   this->publish_state_(this->vehicle_status_code_sensor_, evse_get_16bit(4));
   if (raw_vehicle_state < VEHICLE_STATES_SIZE) {
@@ -169,10 +169,10 @@ void EvseWallbox::on_status_data_(const std::vector<uint8_t> &data) {
     this->publish_state_(this->vehicle_status_text_sensor_, "Unknown");
   }
 
-  //   1003      6    0xFF 0xFF        Cable limit detected                                           1.0 A
+  //   1003      6    0x00 0x05        Cable limit detected                                           1.0 A
   this->publish_state_(this->cable_limit_detected_sensor_, evse_get_16bit(6));
 
-  //   1004      8    0xFF 0xFF        Command bitmask
+  //   1004      8    0x00 0x00        Command bitmask
   uint16_t raw_last_command_bitmask = evse_get_16bit(8);
   this->publish_state_(this->last_command_bitmask_sensor_, raw_last_command_bitmask);
   // @TODO: Decode bitmask
@@ -182,10 +182,10 @@ void EvseWallbox::on_status_data_(const std::vector<uint8_t> &data) {
   ESP_LOGI(TAG, "    Run RCD test procedure: %s", YESNO(check_bit_(raw_last_command_bitmask, 2)));
   ESP_LOGI(TAG, "    Clear RCD error: %s", YESNO(check_bit_(raw_last_command_bitmask, 4)));
 
-  //  1005      10    0xFF 0xFF        Firmware version                                               1.0
-  this->publish_state_(this->firmware_version_sensor_, evse_get_16bit(10) * 0.1f);
+  //  1005      10    0x00 0x12        Firmware version                                               1.0
+  this->publish_state_(this->firmware_version_sensor_, evse_get_16bit(10) * 1.0f);
 
-  //  1006      12    0xFF 0xFF        EVSE state                                                     1.0
+  //  1006      12    0x00 0x01        EVSE state                                                     1.0
   uint16_t raw_evse_state = evse_get_16bit(12);
   this->publish_state_(this->operation_mode_code_sensor_, raw_evse_state);
   if (raw_evse_state < OPERATION_MODES_SIZE) {
@@ -194,7 +194,7 @@ void EvseWallbox::on_status_data_(const std::vector<uint8_t> &data) {
     this->publish_state_(this->operation_mode_text_sensor_, "Unknown");
   }
 
-  //  1007      14    0xFF 0xFF        Status and errors bitmask
+  //  1007      14    0x00 0x00        Status and errors bitmask
   uint16_t raw_error_bitmask = evse_get_16bit(14);
   this->publish_state_(this->error_bitmask_sensor_, raw_error_bitmask);
   this->publish_state_(this->errors_text_sensor_, error_bits_to_string_(raw_error_bitmask & ~(1 << 0)));
@@ -206,10 +206,10 @@ void EvseWallbox::on_status_data_(const std::vector<uint8_t> &data) {
   this->publish_state_(this->rcd_test_in_progress_binary_sensor_, check_bit_(raw_error_bitmask, 16));
   this->publish_state_(this->rcd_check_error_binary_sensor_, check_bit_(raw_error_bitmask, 32));
 
-  //  1008      16    0xFF 0xFF        Error timeout countdown                                        1.0
+  //  1008      16    0x00 0x00        Error timeout countdown                                        1.0
   this->publish_state_(this->error_timeout_countdown_sensor_, evse_get_16bit(16));
 
-  //  1009      18    0xFF 0xFF        Self-test timeout countdown                                     1.0
+  //  1009      18    0x00 0x00        Self-test timeout countdown                                     1.0
   this->publish_state_(this->self_test_timeout_countdown_sensor_, evse_get_16bit(18));
 }
 
