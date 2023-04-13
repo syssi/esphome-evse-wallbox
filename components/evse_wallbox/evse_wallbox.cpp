@@ -56,6 +56,11 @@ void EvseWallbox::on_modbus_data(const std::vector<uint8_t> &data) {
     return;
   }
 
+  if (data.size() == REGISTERS_STATUS_COUNT_V15 * 2) {
+    this->on_status_data_(data);
+    return;
+  }
+
   ESP_LOGW(TAG, "Invalid size (%zu) for EVSE wallbox frame!", data.size());
   ESP_LOGW(TAG, "Payload: %s", format_hex_pretty(&data.front(), data.size()).c_str());
 }
