@@ -6,7 +6,7 @@ from esphome.const import CONF_ID
 CODEOWNERS = ["@syssi"]
 
 DEPENDENCIES = ["modbus"]
-AUTO_LOAD = ["binary_sensor", "number", "sensor", "switch", "text_sensor"]
+AUTO_LOAD = ["binary_sensor", "button", "number", "sensor", "switch", "text_sensor"]
 MULTI_CONF = True
 
 CONF_EVSE_WALLBOX_ID = "evse_wallbox_id"
