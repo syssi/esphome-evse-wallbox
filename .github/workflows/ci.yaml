@@ -197,6 +197,7 @@ jobs:
           for YAML in esp*.yaml; do
             esphome -s external_components_source components config $YAML >/dev/null
           done
+      - run: |
           for YAML in tests/esp*.yaml; do
             esphome -s external_components_source ../components config $YAML >/dev/null
           done
