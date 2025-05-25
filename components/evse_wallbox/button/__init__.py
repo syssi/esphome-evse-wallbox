@@ -1,7 +1,7 @@
 import esphome.codegen as cg
 from esphome.components import button
 import esphome.config_validation as cv
-from esphome.const import CONF_ICON, CONF_ID, ICON_EMPTY
+from esphome.const import CONF_ID, ICON_EMPTY
 
 from .. import CONF_EVSE_WALLBOX_ID, EVSE_WALLBOX_COMPONENT_SCHEMA, evse_wallbox_ns
 
@@ -23,23 +23,14 @@ EvseButton = evse_wallbox_ns.class_("EvseButton", button.Button, cg.Component)
 
 CONFIG_SCHEMA = EVSE_WALLBOX_COMPONENT_SCHEMA.extend(
     {
-        cv.Optional(CONF_TURN_OFF_CHARGING): button.BUTTON_SCHEMA.extend(
-            {
-                cv.GenerateID(): cv.declare_id(EvseButton),
-                cv.Optional(CONF_ICON, default=ICON_EMPTY): cv.icon,
-            }
+        cv.Optional(CONF_TURN_OFF_CHARGING): button.button_schema(
+            EvseButton, icon=ICON_EMPTY
         ).extend(cv.COMPONENT_SCHEMA),
-        cv.Optional(CONF_START_SELF_TEST): button.BUTTON_SCHEMA.extend(
-            {
-                cv.GenerateID(): cv.declare_id(EvseButton),
-                cv.Optional(CONF_ICON, default=ICON_EMPTY): cv.icon,
-            }
+        cv.Optional(CONF_START_SELF_TEST): button.button_schema(
+            EvseButton, icon=ICON_EMPTY
         ).extend(cv.COMPONENT_SCHEMA),
-        cv.Optional(CONF_CLEAR_RCD_ERROR): button.BUTTON_SCHEMA.extend(
-            {
-                cv.GenerateID(): cv.declare_id(EvseButton),
-                cv.Optional(CONF_ICON, default=ICON_EMPTY): cv.icon,
-            }
+        cv.Optional(CONF_CLEAR_RCD_ERROR): button.button_schema(
+            EvseButton, icon=ICON_EMPTY
         ).extend(cv.COMPONENT_SCHEMA),
     }
 )
