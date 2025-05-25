@@ -1,7 +1,7 @@
 import esphome.codegen as cg
 from esphome.components import text_sensor
 import esphome.config_validation as cv
-from esphome.const import CONF_ICON, CONF_ID
+from esphome.const import CONF_ID
 
 from . import CONF_EVSE_WALLBOX_ID, EVSE_WALLBOX_COMPONENT_SCHEMA
 
@@ -23,29 +23,17 @@ TEXT_SENSORS = [
 
 CONFIG_SCHEMA = EVSE_WALLBOX_COMPONENT_SCHEMA.extend(
     {
-        cv.Optional(CONF_VEHICLE_STATUS): text_sensor.TEXT_SENSOR_SCHEMA.extend(
-            {
-                cv.GenerateID(): cv.declare_id(text_sensor.TextSensor),
-                cv.Optional(CONF_ICON, default="mdi:car-electric"): cv.icon,
-            }
+        cv.Optional(CONF_VEHICLE_STATUS): text_sensor.text_sensor_schema(
+            text_sensor.TextSensor, icon="mdi:car-electric"
         ),
-        cv.Optional(CONF_LAST_COMMAND): text_sensor.TEXT_SENSOR_SCHEMA.extend(
-            {
-                cv.GenerateID(): cv.declare_id(text_sensor.TextSensor),
-                cv.Optional(CONF_ICON, default="mdi:remote"): cv.icon,
-            }
+        cv.Optional(CONF_LAST_COMMAND): text_sensor.text_sensor_schema(
+            text_sensor.TextSensor, icon="mdi:remote"
         ),
-        cv.Optional(CONF_OPERATION_MODE): text_sensor.TEXT_SENSOR_SCHEMA.extend(
-            {
-                cv.GenerateID(): cv.declare_id(text_sensor.TextSensor),
-                cv.Optional(CONF_ICON, default="mdi:pulse"): cv.icon,
-            }
+        cv.Optional(CONF_OPERATION_MODE): text_sensor.text_sensor_schema(
+            text_sensor.TextSensor, icon="mdi:pulse"
         ),
-        cv.Optional(CONF_ERRORS): text_sensor.TEXT_SENSOR_SCHEMA.extend(
-            {
-                cv.GenerateID(): cv.declare_id(text_sensor.TextSensor),
-                cv.Optional(CONF_ICON, default="mdi:alert-circle"): cv.icon,
-            }
+        cv.Optional(CONF_ERRORS): text_sensor.text_sensor_schema(
+            text_sensor.TextSensor, icon="mdi:alert-circle"
         ),
     }
 )
