@@ -288,6 +288,30 @@ void EvseWallbox::publish_state_(switch_::Switch *obj, const bool &state) {
 void EvseWallbox::dump_config() {  // NOLINT(google-readability-function-size,readability-function-size)
   ESP_LOGCONFIG(TAG, "EvseWallbox:");
   ESP_LOGCONFIG(TAG, "  Address: 0x%02X", this->address_);
+
+  LOG_BINARY_SENSOR("", "Relay", this->relay_binary_sensor_);
+  LOG_BINARY_SENSOR("", "Diode Check Failed", this->diode_check_failed_binary_sensor_);
+  LOG_BINARY_SENSOR("", "Ventilation Failed", this->ventilation_failed_binary_sensor_);
+  LOG_BINARY_SENSOR("", "Waiting for Pilot Release", this->waiting_for_pilot_release_binary_sensor_);
+  LOG_BINARY_SENSOR("", "RCD Test In Progress", this->rcd_test_in_progress_binary_sensor_);
+  LOG_BINARY_SENSOR("", "RCD Check Error", this->rcd_check_error_binary_sensor_);
+
+  LOG_SENSOR("", "Output Current Setting", this->output_current_setting_sensor_);
+  LOG_SENSOR("", "Output Current", this->output_current_sensor_);
+  LOG_SENSOR("", "Vehicle Status Code", this->vehicle_status_code_sensor_);
+  LOG_SENSOR("", "Cable Limit Detected", this->cable_limit_detected_sensor_);
+  LOG_SENSOR("", "Last Command Bitmask", this->last_command_bitmask_sensor_);
+  LOG_SENSOR("", "Firmware Version", this->firmware_version_sensor_);
+  LOG_SENSOR("", "Operation Mode Code", this->operation_mode_code_sensor_);
+  LOG_SENSOR("", "Error Bitmask", this->error_bitmask_sensor_);
+  LOG_SENSOR("", "Error Timeout Countdown", this->error_timeout_countdown_sensor_);
+  LOG_SENSOR("", "Self Test Timeout Countdown", this->self_test_timeout_countdown_sensor_);
+  LOG_SENSOR("", "Config Bits", this->config_bits_sensor_);
+
+  LOG_TEXT_SENSOR("", "Vehicle Status", this->vehicle_status_text_sensor_);
+  LOG_TEXT_SENSOR("", "Last Command", this->last_command_text_sensor_);
+  LOG_TEXT_SENSOR("", "Operation Mode", this->operation_mode_text_sensor_);
+  LOG_TEXT_SENSOR("", "Errors", this->errors_text_sensor_);
 }
 
 std::string EvseWallbox::error_bits_to_string_(const uint16_t mask) {
