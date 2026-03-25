@@ -125,44 +125,44 @@ class EvseWallbox : public PollingComponent, public modbus::ModbusDevice {
   void write_config_bits(uint16_t bit_field, bool state);
 
  protected:
-  binary_sensor::BinarySensor *relay_binary_sensor_;
-  binary_sensor::BinarySensor *diode_check_failed_binary_sensor_;
-  binary_sensor::BinarySensor *ventilation_failed_binary_sensor_;
-  binary_sensor::BinarySensor *waiting_for_pilot_release_binary_sensor_;
-  binary_sensor::BinarySensor *rcd_test_in_progress_binary_sensor_;
-  binary_sensor::BinarySensor *rcd_check_error_binary_sensor_;
+  binary_sensor::BinarySensor *relay_binary_sensor_{nullptr};
+  binary_sensor::BinarySensor *diode_check_failed_binary_sensor_{nullptr};
+  binary_sensor::BinarySensor *ventilation_failed_binary_sensor_{nullptr};
+  binary_sensor::BinarySensor *waiting_for_pilot_release_binary_sensor_{nullptr};
+  binary_sensor::BinarySensor *rcd_test_in_progress_binary_sensor_{nullptr};
+  binary_sensor::BinarySensor *rcd_check_error_binary_sensor_{nullptr};
 
-  number::Number *output_current_setting_number_;
-  number::Number *output_current_default_number_;
-  number::Number *min_charging_current_number_;
+  number::Number *output_current_setting_number_{nullptr};
+  number::Number *output_current_default_number_{nullptr};
+  number::Number *min_charging_current_number_{nullptr};
 
-  sensor::Sensor *output_current_setting_sensor_;
-  sensor::Sensor *output_current_sensor_;
-  sensor::Sensor *vehicle_status_code_sensor_;
-  sensor::Sensor *cable_limit_detected_sensor_;
-  sensor::Sensor *last_command_bitmask_sensor_;
-  sensor::Sensor *firmware_version_sensor_;
-  sensor::Sensor *operation_mode_code_sensor_;
-  sensor::Sensor *error_bitmask_sensor_;
-  sensor::Sensor *error_timeout_countdown_sensor_;
-  sensor::Sensor *self_test_timeout_countdown_sensor_;
-  sensor::Sensor *config_bits_sensor_;
+  sensor::Sensor *output_current_setting_sensor_{nullptr};
+  sensor::Sensor *output_current_sensor_{nullptr};
+  sensor::Sensor *vehicle_status_code_sensor_{nullptr};
+  sensor::Sensor *cable_limit_detected_sensor_{nullptr};
+  sensor::Sensor *last_command_bitmask_sensor_{nullptr};
+  sensor::Sensor *firmware_version_sensor_{nullptr};
+  sensor::Sensor *operation_mode_code_sensor_{nullptr};
+  sensor::Sensor *error_bitmask_sensor_{nullptr};
+  sensor::Sensor *error_timeout_countdown_sensor_{nullptr};
+  sensor::Sensor *self_test_timeout_countdown_sensor_{nullptr};
+  sensor::Sensor *config_bits_sensor_{nullptr};
 
-  switch_::Switch *current_change_by_button_switch_;
-  switch_::Switch *stop_charging_on_button_press_switch_;
-  switch_::Switch *pilot_ready_state_led_always_on_switch_;
-  switch_::Switch *charging_of_vehicle_status_d_switch_;
-  switch_::Switch *rcd_feedback_on_mclr_pin_switch_;
-  switch_::Switch *auto_clear_rcd_error_switch_;
-  switch_::Switch *an_internal_pullup_switch_;
-  switch_::Switch *disable_evse_after_charge_switch_;
-  switch_::Switch *disable_evse_switch_;
-  switch_::Switch *bootloader_mode_switch_;
+  switch_::Switch *current_change_by_button_switch_{nullptr};
+  switch_::Switch *stop_charging_on_button_press_switch_{nullptr};
+  switch_::Switch *pilot_ready_state_led_always_on_switch_{nullptr};
+  switch_::Switch *charging_of_vehicle_status_d_switch_{nullptr};
+  switch_::Switch *rcd_feedback_on_mclr_pin_switch_{nullptr};
+  switch_::Switch *auto_clear_rcd_error_switch_{nullptr};
+  switch_::Switch *an_internal_pullup_switch_{nullptr};
+  switch_::Switch *disable_evse_after_charge_switch_{nullptr};
+  switch_::Switch *disable_evse_switch_{nullptr};
+  switch_::Switch *bootloader_mode_switch_{nullptr};
 
-  text_sensor::TextSensor *vehicle_status_text_sensor_;
-  text_sensor::TextSensor *last_command_text_sensor_;
-  text_sensor::TextSensor *operation_mode_text_sensor_;
-  text_sensor::TextSensor *errors_text_sensor_;
+  text_sensor::TextSensor *vehicle_status_text_sensor_{nullptr};
+  text_sensor::TextSensor *last_command_text_sensor_{nullptr};
+  text_sensor::TextSensor *operation_mode_text_sensor_{nullptr};
+  text_sensor::TextSensor *errors_text_sensor_{nullptr};
 
   uint16_t config_bits_ = 0x0000;
   uint16_t firmware_version_{0};
