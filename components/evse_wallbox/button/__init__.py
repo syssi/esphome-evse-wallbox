@@ -25,13 +25,13 @@ CONFIG_SCHEMA = EVSE_WALLBOX_COMPONENT_SCHEMA.extend(
     {
         cv.Optional(CONF_TURN_OFF_CHARGING): button.button_schema(
             EvseButton, icon=ICON_EMPTY
-        ).extend(cv.COMPONENT_SCHEMA),
+        ),
         cv.Optional(CONF_START_SELF_TEST): button.button_schema(
             EvseButton, icon=ICON_EMPTY
-        ).extend(cv.COMPONENT_SCHEMA),
+        ),
         cv.Optional(CONF_CLEAR_RCD_ERROR): button.button_schema(
             EvseButton, icon=ICON_EMPTY
-        ).extend(cv.COMPONENT_SCHEMA),
+        ),
     }
 )
 

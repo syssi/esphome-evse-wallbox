@@ -41,52 +41,52 @@ CONFIG_SCHEMA = EVSE_WALLBOX_COMPONENT_SCHEMA.extend(
             EvseSwitch,
             icon=ICON_EMPTY,
             entity_category=ENTITY_CATEGORY_CONFIG,
-        ).extend(cv.COMPONENT_SCHEMA),
+        ),
         cv.Optional(CONF_STOP_CHARGING_ON_BUTTON_PRESS): switch.switch_schema(
             EvseSwitch,
             icon=ICON_EMPTY,
             entity_category=ENTITY_CATEGORY_CONFIG,
-        ).extend(cv.COMPONENT_SCHEMA),
+        ),
         cv.Optional(CONF_PILOT_READY_STATE_LED_ALWAYS_ON): switch.switch_schema(
             EvseSwitch,
             icon=ICON_EMPTY,
             entity_category=ENTITY_CATEGORY_CONFIG,
-        ).extend(cv.COMPONENT_SCHEMA),
+        ),
         cv.Optional(CONF_CHARGING_OF_VEHICLE_STATUS_D): switch.switch_schema(
             EvseSwitch,
             icon=ICON_EMPTY,
             entity_category=ENTITY_CATEGORY_CONFIG,
-        ).extend(cv.COMPONENT_SCHEMA),
+        ),
         cv.Optional(CONF_RCD_FEEDBACK_ON_MCLR_PIN): switch.switch_schema(
             EvseSwitch,
             icon=ICON_EMPTY,
             entity_category=ENTITY_CATEGORY_CONFIG,
-        ).extend(cv.COMPONENT_SCHEMA),
+        ),
         cv.Optional(CONF_AUTO_CLEAR_RCD_ERROR): switch.switch_schema(
             EvseSwitch,
             icon=ICON_EMPTY,
             entity_category=ENTITY_CATEGORY_CONFIG,
-        ).extend(cv.COMPONENT_SCHEMA),
+        ),
         cv.Optional(CONF_AN_INTERNAL_PULLUP): switch.switch_schema(
             EvseSwitch,
             icon=ICON_EMPTY,
             entity_category=ENTITY_CATEGORY_CONFIG,
-        ).extend(cv.COMPONENT_SCHEMA),
+        ),
         cv.Optional(CONF_DISABLE_EVSE_AFTER_CHARGE): switch.switch_schema(
             EvseSwitch,
             icon=ICON_EMPTY,
             entity_category=ENTITY_CATEGORY_CONFIG,
-        ).extend(cv.COMPONENT_SCHEMA),
+        ),
         cv.Optional(CONF_DISABLE_EVSE): switch.switch_schema(
             EvseSwitch,
             icon=ICON_EMPTY,
             entity_category=ENTITY_CATEGORY_CONFIG,
-        ).extend(cv.COMPONENT_SCHEMA),
+        ),
         cv.Optional(CONF_BOOTLOADER_MODE): switch.switch_schema(
             EvseSwitch,
             icon=ICON_EMPTY,
             entity_category=ENTITY_CATEGORY_CONFIG,
-        ).extend(cv.COMPONENT_SCHEMA),
+        ),
     }
 )
 
