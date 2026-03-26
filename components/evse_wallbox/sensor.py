@@ -4,6 +4,7 @@ import esphome.config_validation as cv
 from esphome.const import (
     DEVICE_CLASS_CURRENT,
     DEVICE_CLASS_EMPTY,
+    ENTITY_CATEGORY_DIAGNOSTIC,
     ICON_EMPTY,
     STATE_CLASS_MEASUREMENT,
     UNIT_AMPERE,
@@ -77,8 +78,8 @@ CONFIG_SCHEMA = EVSE_WALLBOX_COMPONENT_SCHEMA.extend(
             unit_of_measurement=UNIT_EMPTY,
             icon="mdi:remote",
             accuracy_decimals=0,
-            device_class=DEVICE_CLASS_EMPTY,
-            state_class=STATE_CLASS_MEASUREMENT,
+            device_class=None,
+            entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
         ),
         cv.Optional(CONF_FIRMWARE_VERSION): sensor.sensor_schema(
             unit_of_measurement=UNIT_EMPTY,
@@ -98,8 +99,8 @@ CONFIG_SCHEMA = EVSE_WALLBOX_COMPONENT_SCHEMA.extend(
             unit_of_measurement=UNIT_EMPTY,
             icon="mdi:alert-circle",
             accuracy_decimals=0,
-            device_class=DEVICE_CLASS_EMPTY,
-            state_class=STATE_CLASS_MEASUREMENT,
+            device_class=None,
+            entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
         ),
         cv.Optional(CONF_ERROR_TIMEOUT_COUNTDOWN): sensor.sensor_schema(
             unit_of_measurement=UNIT_EMPTY,
