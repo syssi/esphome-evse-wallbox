@@ -78,7 +78,7 @@ CONFIG_SCHEMA = EVSE_WALLBOX_COMPONENT_SCHEMA.extend(
             unit_of_measurement=UNIT_EMPTY,
             icon="mdi:remote",
             accuracy_decimals=0,
-            device_class=None,
+            device_class=DEVICE_CLASS_EMPTY,
             entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
         ),
         cv.Optional(CONF_FIRMWARE_VERSION): sensor.sensor_schema(
@@ -99,7 +99,7 @@ CONFIG_SCHEMA = EVSE_WALLBOX_COMPONENT_SCHEMA.extend(
             unit_of_measurement=UNIT_EMPTY,
             icon="mdi:alert-circle",
             accuracy_decimals=0,
-            device_class=None,
+            device_class=DEVICE_CLASS_EMPTY,
             entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
         ),
         cv.Optional(CONF_ERROR_TIMEOUT_COUNTDOWN): sensor.sensor_schema(
