@@ -1,7 +1,7 @@
 import esphome.codegen as cg
 from esphome.components import binary_sensor
 import esphome.config_validation as cv
-from esphome.const import ENTITY_CATEGORY_DIAGNOSTIC, ICON_EMPTY
+from esphome.const import ENTITY_CATEGORY_DIAGNOSTIC
 
 from . import CONF_EVSE_WALLBOX_ID, EVSE_WALLBOX_COMPONENT_SCHEMA
 
@@ -28,22 +28,22 @@ BINARY_SENSORS = [
 CONFIG_SCHEMA = EVSE_WALLBOX_COMPONENT_SCHEMA.extend(
     {
         cv.Optional(CONF_RELAY): binary_sensor.binary_sensor_schema(
-            icon=ICON_EMPTY, entity_category=ENTITY_CATEGORY_DIAGNOSTIC
+            icon=None, entity_category=ENTITY_CATEGORY_DIAGNOSTIC
         ),
         cv.Optional(CONF_DIODE_CHECK_FAILED): binary_sensor.binary_sensor_schema(
-            icon=ICON_EMPTY, entity_category=ENTITY_CATEGORY_DIAGNOSTIC
+            icon=None, entity_category=ENTITY_CATEGORY_DIAGNOSTIC
         ),
         cv.Optional(CONF_VENTILATION_FAILED): binary_sensor.binary_sensor_schema(
-            icon=ICON_EMPTY, entity_category=ENTITY_CATEGORY_DIAGNOSTIC
+            icon=None, entity_category=ENTITY_CATEGORY_DIAGNOSTIC
         ),
         cv.Optional(CONF_WAITING_FOR_PILOT_RELEASE): binary_sensor.binary_sensor_schema(
-            icon=ICON_EMPTY, entity_category=ENTITY_CATEGORY_DIAGNOSTIC
+            icon=None, entity_category=ENTITY_CATEGORY_DIAGNOSTIC
         ),
         cv.Optional(CONF_RCD_TEST_IN_PROGRESS): binary_sensor.binary_sensor_schema(
-            icon=ICON_EMPTY, entity_category=ENTITY_CATEGORY_DIAGNOSTIC
+            icon=None, entity_category=ENTITY_CATEGORY_DIAGNOSTIC
         ),
         cv.Optional(CONF_RCD_CHECK_ERROR): binary_sensor.binary_sensor_schema(
-            icon=ICON_EMPTY, entity_category=ENTITY_CATEGORY_DIAGNOSTIC
+            icon=None, entity_category=ENTITY_CATEGORY_DIAGNOSTIC
         ),
     }
 )

@@ -3,8 +3,6 @@ from esphome.components import sensor
 import esphome.config_validation as cv
 from esphome.const import (
     DEVICE_CLASS_CURRENT,
-    DEVICE_CLASS_EMPTY,
-    ICON_EMPTY,
     STATE_CLASS_MEASUREMENT,
     UNIT_AMPERE,
     UNIT_EMPTY,
@@ -47,7 +45,7 @@ CONFIG_SCHEMA = EVSE_WALLBOX_COMPONENT_SCHEMA.extend(
     {
         cv.Optional(CONF_OUTPUT_CURRENT_SETTING): sensor.sensor_schema(
             unit_of_measurement=UNIT_AMPERE,
-            icon=ICON_EMPTY,
+            icon=None,
             accuracy_decimals=0,
             device_class=DEVICE_CLASS_CURRENT,
             state_class=STATE_CLASS_MEASUREMENT,
@@ -63,7 +61,7 @@ CONFIG_SCHEMA = EVSE_WALLBOX_COMPONENT_SCHEMA.extend(
             unit_of_measurement=UNIT_EMPTY,
             icon="mdi:car-electric",
             accuracy_decimals=0,
-            device_class=DEVICE_CLASS_EMPTY,
+            device_class=None,
             state_class=STATE_CLASS_MEASUREMENT,
         ),
         cv.Optional(CONF_CABLE_LIMIT_DETECTED): sensor.sensor_schema(
@@ -77,49 +75,49 @@ CONFIG_SCHEMA = EVSE_WALLBOX_COMPONENT_SCHEMA.extend(
             unit_of_measurement=UNIT_EMPTY,
             icon="mdi:remote",
             accuracy_decimals=0,
-            device_class=DEVICE_CLASS_EMPTY,
+            device_class=None,
             state_class=STATE_CLASS_MEASUREMENT,
         ),
         cv.Optional(CONF_FIRMWARE_VERSION): sensor.sensor_schema(
             unit_of_measurement=UNIT_EMPTY,
             icon="mdi:numeric",
             accuracy_decimals=0,
-            device_class=DEVICE_CLASS_EMPTY,
+            device_class=None,
             state_class=STATE_CLASS_MEASUREMENT,
         ),
         cv.Optional(CONF_OPERATION_MODE_CODE): sensor.sensor_schema(
             unit_of_measurement=UNIT_EMPTY,
             icon="mdi:pulse",
             accuracy_decimals=0,
-            device_class=DEVICE_CLASS_EMPTY,
+            device_class=None,
             state_class=STATE_CLASS_MEASUREMENT,
         ),
         cv.Optional(CONF_ERROR_BITMASK): sensor.sensor_schema(
             unit_of_measurement=UNIT_EMPTY,
             icon="mdi:alert-circle",
             accuracy_decimals=0,
-            device_class=DEVICE_CLASS_EMPTY,
+            device_class=None,
             state_class=STATE_CLASS_MEASUREMENT,
         ),
         cv.Optional(CONF_ERROR_TIMEOUT_COUNTDOWN): sensor.sensor_schema(
             unit_of_measurement=UNIT_EMPTY,
             icon="mdi:timer-remove-outline",
             accuracy_decimals=0,
-            device_class=DEVICE_CLASS_EMPTY,
+            device_class=None,
             state_class=STATE_CLASS_MEASUREMENT,
         ),
         cv.Optional(CONF_SELF_TEST_TIMEOUT_COUNTDOWN): sensor.sensor_schema(
             unit_of_measurement=UNIT_EMPTY,
             icon="mdi:timer-remove-outline",
             accuracy_decimals=0,
-            device_class=DEVICE_CLASS_EMPTY,
+            device_class=None,
             state_class=STATE_CLASS_MEASUREMENT,
         ),
         cv.Optional(CONF_CONFIG_BITS): sensor.sensor_schema(
             unit_of_measurement=UNIT_EMPTY,
             icon="mdi:cog",
             accuracy_decimals=0,
-            device_class=DEVICE_CLASS_EMPTY,
+            device_class=None,
             state_class=STATE_CLASS_MEASUREMENT,
         ),
     }

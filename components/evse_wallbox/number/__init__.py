@@ -8,7 +8,6 @@ from esphome.const import (
     CONF_MODE,
     CONF_STEP,
     ENTITY_CATEGORY_CONFIG,
-    ICON_EMPTY,
     UNIT_AMPERE,
 )
 
@@ -35,7 +34,7 @@ EvseNumber = evse_wallbox_ns.class_("EvseNumber", number.Number, cg.Component)
 EVSE_NUMBER_SCHEMA = (
     number.number_schema(
         EvseNumber,
-        icon=ICON_EMPTY,
+        icon=None,
         entity_category=ENTITY_CATEGORY_CONFIG,
         unit_of_measurement=UNIT_AMPERE,
     )
