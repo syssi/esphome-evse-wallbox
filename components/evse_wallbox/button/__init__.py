@@ -2,7 +2,6 @@ import esphome.codegen as cg
 from esphome.components import button
 import esphome.config_validation as cv
 
-
 from .. import CONF_EVSE_WALLBOX_ID, EVSE_WALLBOX_COMPONENT_SCHEMA, evse_wallbox_ns
 
 DEPENDENCIES = ["evse_wallbox"]
@@ -26,12 +25,8 @@ CONFIG_SCHEMA = EVSE_WALLBOX_COMPONENT_SCHEMA.extend(
         cv.Optional(CONF_TURN_OFF_CHARGING): button.button_schema(
             EvseButton, icon=None
         ),
-        cv.Optional(CONF_START_SELF_TEST): button.button_schema(
-            EvseButton, icon=None
-        ),
-        cv.Optional(CONF_CLEAR_RCD_ERROR): button.button_schema(
-            EvseButton, icon=None
-        ),
+        cv.Optional(CONF_START_SELF_TEST): button.button_schema(EvseButton, icon=None),
+        cv.Optional(CONF_CLEAR_RCD_ERROR): button.button_schema(EvseButton, icon=None),
     }
 )
 
