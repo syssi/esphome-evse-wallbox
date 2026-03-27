@@ -1,6 +1,7 @@
 import esphome.codegen as cg
 from esphome.components import text_sensor
 import esphome.config_validation as cv
+from esphome.const import ENTITY_CATEGORY_DIAGNOSTIC
 
 from . import CONF_EVSE_WALLBOX_ID, EVSE_WALLBOX_COMPONENT_SCHEMA
 
@@ -23,16 +24,17 @@ TEXT_SENSORS = [
 CONFIG_SCHEMA = EVSE_WALLBOX_COMPONENT_SCHEMA.extend(
     {
         cv.Optional(CONF_VEHICLE_STATUS): text_sensor.text_sensor_schema(
-            text_sensor.TextSensor, icon="mdi:car-electric"
+            icon="mdi:car-electric"
         ),
         cv.Optional(CONF_LAST_COMMAND): text_sensor.text_sensor_schema(
-            text_sensor.TextSensor, icon="mdi:remote"
+            icon="mdi:remote"
         ),
         cv.Optional(CONF_OPERATION_MODE): text_sensor.text_sensor_schema(
-            text_sensor.TextSensor, icon="mdi:pulse"
+            icon="mdi:pulse"
         ),
         cv.Optional(CONF_ERRORS): text_sensor.text_sensor_schema(
-            text_sensor.TextSensor, icon="mdi:alert-circle"
+            icon="mdi:alert-circle",
+            entity_category=ENTITY_CATEGORY_DIAGNOSTIC,
         ),
     }
 )
