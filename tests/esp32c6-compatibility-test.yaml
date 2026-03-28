@@ -5,6 +5,7 @@ substitutions:
 
 esphome:
   name: ${name}
+  friendly_name: ${name}
   comment: ${device_description}
 
 esp32:
@@ -50,4 +51,4 @@ evse_wallbox:
 sensor:
   - platform: evse_wallbox
     output_current_setting:
-      name: "${name} output current setting"
+      name: "output current setting"
