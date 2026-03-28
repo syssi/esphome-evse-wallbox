@@ -50,4 +50,4 @@ evse_wallbox:
 sensor:
   - platform: evse_wallbox
     output_current_setting:
-      name: "${name} output current setting"
+      name: "output current setting"

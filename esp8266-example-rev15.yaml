@@ -1,6 +1,6 @@
 substitutions:
   name: evse-wallbox
-  config_name: "${name} config"
+  config_name: "config"
   device_description: "Monitor and control a EVSE wallbox via RS485 (Modbus)"
   external_components_source: github://syssi/esphome-evse-wallbox@main
   tx_pin: GPIO4
@@ -62,37 +62,37 @@ evse_wallbox:
 button:
   - platform: evse_wallbox
     turn_off_charging:
-      name: "${name} turn off charging"
+      name: "turn off charging"
     start_self_test:
-      name: "${name} start self-test"
+      name: "start self-test"
     clear_rcd_error:
-      name: "${name} clear rcd error"
+      name: "clear rcd error"
 
 number:
   - platform: evse_wallbox
     output_current_setting:
-      name: "${name} output current setting"
+      name: "output current setting"
     output_current_default:
-      name: "${name} output current default"
+      name: "output current default"
     min_charging_current:
-      name: "${name} minimum charging current"
+      name: "minimum charging current"
 
 sensor:
   - platform: evse_wallbox
     output_current_setting:
-      name: "${name} output current setting"
+      name: "output current setting"
     output_current:
-      name: "${name} output current"
+      name: "output current"
     vehicle_status_code:
-      name: "${name} vehicle status code"
+      name: "vehicle status code"
     cable_limit_detected:
-      name: "${name} cable limit detected"
+      name: "cable limit detected"
     last_command_bitmask:
-      name: "${name} last command bitmask"
+      name: "last command bitmask"
     firmware_version:
-      name: "${name} firmware version"
+      name: "firmware version"
     operation_mode_code:
-      name: "${name} operation mode code"
+      name: "operation mode code"
     config_bits:
       name: "${config_name} config bits"
 
@@ -122,8 +122,8 @@ switch:
 text_sensor:
   - platform: evse_wallbox
     vehicle_status:
-      name: "${name} vehicle status"
+      name: "vehicle status"
     last_command:
-      name: "${name} last command"
+      name: "last command"
     operation_mode:
-      name: "${name} operation mode"
+      name: "operation mode"
