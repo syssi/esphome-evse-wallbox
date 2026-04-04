@@ -16,42 +16,41 @@ CONF_WAITING_FOR_PILOT_RELEASE = "waiting_for_pilot_release"
 CONF_RCD_TEST_IN_PROGRESS = "rcd_test_in_progress"
 CONF_RCD_CHECK_ERROR = "rcd_check_error"
 
-BINARY_SENSORS = [
-    CONF_RELAY,
-    CONF_DIODE_CHECK_FAILED,
-    CONF_VENTILATION_FAILED,
-    CONF_WAITING_FOR_PILOT_RELEASE,
-    CONF_RCD_TEST_IN_PROGRESS,
-    CONF_RCD_CHECK_ERROR,
-]
+BINARY_SENSOR_DEFS = {
+    CONF_RELAY: {"icon": ICON_EMPTY, "entity_category": ENTITY_CATEGORY_DIAGNOSTIC},
+    CONF_DIODE_CHECK_FAILED: {
+        "icon": ICON_EMPTY,
+        "entity_category": ENTITY_CATEGORY_DIAGNOSTIC,
+    },
+    CONF_VENTILATION_FAILED: {
+        "icon": ICON_EMPTY,
+        "entity_category": ENTITY_CATEGORY_DIAGNOSTIC,
+    },
+    CONF_WAITING_FOR_PILOT_RELEASE: {
+        "icon": ICON_EMPTY,
+        "entity_category": ENTITY_CATEGORY_DIAGNOSTIC,
+    },
+    CONF_RCD_TEST_IN_PROGRESS: {
+        "icon": ICON_EMPTY,
+        "entity_category": ENTITY_CATEGORY_DIAGNOSTIC,
+    },
+    CONF_RCD_CHECK_ERROR: {
+        "icon": ICON_EMPTY,
+        "entity_category": ENTITY_CATEGORY_DIAGNOSTIC,
+    },
+}
 
 CONFIG_SCHEMA = EVSE_WALLBOX_COMPONENT_SCHEMA.extend(
     {
-        cv.Optional(CONF_RELAY): binary_sensor.binary_sensor_schema(
-            icon=ICON_EMPTY, entity_category=ENTITY_CATEGORY_DIAGNOSTIC
-        ),
-        cv.Optional(CONF_DIODE_CHECK_FAILED): binary_sensor.binary_sensor_schema(
-            icon=ICON_EMPTY, entity_category=ENTITY_CATEGORY_DIAGNOSTIC
-        ),
-        cv.Optional(CONF_VENTILATION_FAILED): binary_sensor.binary_sensor_schema(
-            icon=ICON_EMPTY, entity_category=ENTITY_CATEGORY_DIAGNOSTIC
-        ),
-        cv.Optional(CONF_WAITING_FOR_PILOT_RELEASE): binary_sensor.binary_sensor_schema(
-            icon=ICON_EMPTY, entity_category=ENTITY_CATEGORY_DIAGNOSTIC
-        ),
-        cv.Optional(CONF_RCD_TEST_IN_PROGRESS): binary_sensor.binary_sensor_schema(
-            icon=ICON_EMPTY, entity_category=ENTITY_CATEGORY_DIAGNOSTIC
-        ),
-        cv.Optional(CONF_RCD_CHECK_ERROR): binary_sensor.binary_sensor_schema(
-            icon=ICON_EMPTY, entity_category=ENTITY_CATEGORY_DIAGNOSTIC
-        ),
+        cv.Optional(key): binary_sensor.binary_sensor_schema(**kwargs)
+        for key, kwargs in BINARY_SENSOR_DEFS.items()
     }
 )
 
 
 async def to_code(config):
     hub = await cg.get_variable(config[CONF_EVSE_WALLBOX_ID])
-    for key in BINARY_SENSORS:
+    for key in BINARY_SENSOR_DEFS:
         if key in config:
             conf = config[key]
             sens = await binary_sensor.new_binary_sensor(conf)
