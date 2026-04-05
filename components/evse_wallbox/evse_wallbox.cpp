@@ -18,7 +18,7 @@ static const uint16_t REGISTERS_CONFIG_START = 2000;
 static const uint16_t REGISTERS_CONFIG_COUNT = 18;
 
 static const uint8_t VEHICLE_STATES_SIZE = 6;
-static const char *const VEHICLE_STATES[VEHICLE_STATES_SIZE] = {
+static constexpr const char *const VEHICLE_STATES[VEHICLE_STATES_SIZE] = {
     "",                           // 0x00
     "Ready",                      // 0x01
     "Present",                    // 0x02
@@ -28,7 +28,7 @@ static const char *const VEHICLE_STATES[VEHICLE_STATES_SIZE] = {
 };
 
 static const uint8_t OPERATION_MODES_SIZE = 4;
-static const char *const OPERATION_MODES[OPERATION_MODES_SIZE] = {
+static constexpr const char *const OPERATION_MODES[OPERATION_MODES_SIZE] = {
     "",         // 0x00
     "12V",      // 0x01
     "PWM",      // 0x02
@@ -36,7 +36,7 @@ static const char *const OPERATION_MODES[OPERATION_MODES_SIZE] = {
 };
 
 static const uint8_t ERRORS_SIZE = 6;
-static const char *const ERRORS[ERRORS_SIZE] = {
+static constexpr const char *const ERRORS[ERRORS_SIZE] = {
     "Relay on",                                          // 1
     "Diode check failed",                                // 2
     "Ventilation failed",                                // 4
