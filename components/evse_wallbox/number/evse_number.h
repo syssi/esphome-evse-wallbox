@@ -4,8 +4,7 @@
 #include "esphome/core/component.h"
 #include "esphome/components/number/number.h"
 
-namespace esphome {
-namespace evse_wallbox {
+namespace esphome::evse_wallbox {
 
 class EvseWallbox;
 
@@ -22,5 +21,4 @@ class EvseNumber : public number::Number, public Component {
   uint16_t holding_register_;
 };
 
-}  // namespace evse_wallbox
-}  // namespace esphome
+}  // namespace esphome::evse_wallbox

@@ -2,8 +2,7 @@
 #include "esphome/core/log.h"
 #include "esphome/core/helpers.h"
 
-namespace esphome {
-namespace evse_wallbox {
+namespace esphome::evse_wallbox {
 
 static const char *const TAG = "evse_wallbox";
 
@@ -334,5 +333,4 @@ std::string EvseWallbox::error_bits_to_string_(const uint16_t mask) {
   return errors_list;
 }
 
-}  // namespace evse_wallbox
-}  // namespace esphome
+}  // namespace esphome::evse_wallbox

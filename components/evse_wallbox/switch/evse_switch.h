@@ -4,8 +4,7 @@
 #include "esphome/core/component.h"
 #include "esphome/components/switch/switch.h"
 
-namespace esphome {
-namespace evse_wallbox {
+namespace esphome::evse_wallbox {
 
 class EvseWallbox;
 
@@ -25,5 +24,4 @@ class EvseSwitch : public switch_::Switch, public Component {
   uint16_t bit_field_;
 };
 
-}  // namespace evse_wallbox
-}  // namespace esphome
+}  // namespace esphome::evse_wallbox
