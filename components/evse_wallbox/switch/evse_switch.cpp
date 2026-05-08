@@ -2,8 +2,7 @@
 #include "esphome/core/log.h"
 #include "esphome/core/application.h"
 
-namespace esphome {
-namespace evse_wallbox {
+namespace esphome::evse_wallbox {
 
 static const char *const TAG = "evse_wallbox.switch";
 
@@ -17,5 +16,4 @@ void EvseSwitch::write_state(bool state) {
   ESP_LOGE(TAG, "The holding register (%d) isn't supported by the switch entity yet.", this->holding_register_);
 }
 
-}  // namespace evse_wallbox
-}  // namespace esphome
+}  // namespace esphome::evse_wallbox

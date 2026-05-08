@@ -4,8 +4,7 @@
 #include "esphome/core/component.h"
 #include "esphome/components/button/button.h"
 
-namespace esphome {
-namespace evse_wallbox {
+namespace esphome::evse_wallbox {
 
 class EvseWallbox;
 
@@ -25,5 +24,4 @@ class EvseButton : public button::Button, public Component {
   uint16_t payload_;
 };
 
-}  // namespace evse_wallbox
-}  // namespace esphome
+}  // namespace esphome::evse_wallbox

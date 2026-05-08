@@ -8,8 +8,7 @@
 #include "esphome/components/text_sensor/text_sensor.h"
 #include "esphome/components/modbus/modbus.h"
 
-namespace esphome {
-namespace evse_wallbox {
+namespace esphome::evse_wallbox {
 
 class EvseWallbox : public PollingComponent, public modbus::ModbusDevice {
  public:
@@ -182,5 +181,4 @@ class EvseWallbox : public PollingComponent, public modbus::ModbusDevice {
   void publish_state_(text_sensor::TextSensor *text_sensor, const std::string &state);
 };
 
-}  // namespace evse_wallbox
-}  // namespace esphome
+}  // namespace esphome::evse_wallbox
