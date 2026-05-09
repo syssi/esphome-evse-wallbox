@@ -315,7 +315,7 @@ void EvseWallbox::dump_config() {  // NOLINT(google-readability-function-size,re
 
 std::string EvseWallbox::error_bits_to_string_(const uint16_t mask) {
   bool first = true;
-  std::string errors_list = "";
+  std::string errors_list;
 
   if (mask) {
     for (int i = 0; i < ERRORS_SIZE; i++) {
