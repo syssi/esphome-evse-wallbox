@@ -1,7 +1,7 @@
 import esphome.codegen as cg
 from esphome.components import binary_sensor
 import esphome.config_validation as cv
-from esphome.const import ENTITY_CATEGORY_DIAGNOSTIC, ICON_EMPTY
+from esphome.const import DEVICE_CLASS_PROBLEM, ENTITY_CATEGORY_DIAGNOSTIC, ICON_EMPTY
 
 from . import CONF_EVSE_WALLBOX_ID, EVSE_WALLBOX_COMPONENT_SCHEMA
 
@@ -20,10 +20,12 @@ BINARY_SENSOR_DEFS = {
     CONF_RELAY: {"icon": ICON_EMPTY, "entity_category": ENTITY_CATEGORY_DIAGNOSTIC},
     CONF_DIODE_CHECK_FAILED: {
         "icon": ICON_EMPTY,
+        "device_class": DEVICE_CLASS_PROBLEM,
         "entity_category": ENTITY_CATEGORY_DIAGNOSTIC,
     },
     CONF_VENTILATION_FAILED: {
         "icon": ICON_EMPTY,
+        "device_class": DEVICE_CLASS_PROBLEM,
         "entity_category": ENTITY_CATEGORY_DIAGNOSTIC,
     },
     CONF_WAITING_FOR_PILOT_RELEASE: {
@@ -36,6 +38,7 @@ BINARY_SENSOR_DEFS = {
     },
     CONF_RCD_CHECK_ERROR: {
         "icon": ICON_EMPTY,
+        "device_class": DEVICE_CLASS_PROBLEM,
         "entity_category": ENTITY_CATEGORY_DIAGNOSTIC,
     },
 }
