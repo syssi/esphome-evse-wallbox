@@ -2,9 +2,14 @@
 #include "esphome/core/log.h"
 #include "esphome/core/application.h"
 
+// Fallback for ESPHome < 2026.10.0
+#ifndef ESPHOME_LOG_TAG
+#define ESPHOME_LOG_TAG(name, tag) static const char *const name = tag
+#endif
+
 namespace esphome::evse_wallbox {
 
-static const char *const TAG = "evse_wallbox.switch";
+ESPHOME_LOG_TAG(TAG, "evse_wallbox.switch");
 
 void EvseSwitch::dump_config() { LOG_SWITCH("", "EvseWallbox Switch", this); }
 void EvseSwitch::write_state(bool state) {
