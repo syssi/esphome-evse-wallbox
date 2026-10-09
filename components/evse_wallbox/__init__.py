@@ -4,6 +4,7 @@ import esphome.config_validation as cv
 from esphome.const import CONF_ID
 
 CODEOWNERS = ["@syssi"]
+DOMAIN = "evse_wallbox"
 
 DEPENDENCIES = ["modbus"]
 AUTO_LOAD = ["binary_sensor", "button", "number", "sensor", "switch", "text_sensor"]
