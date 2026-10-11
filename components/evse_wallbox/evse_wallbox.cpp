@@ -11,6 +11,8 @@ namespace esphome::evse_wallbox {
 
 ESPHOME_LOG_TAG(TAG, "evse_wallbox");
 
+static constexpr size_t MAX_HEX_DUMP_BYTES = 100;
+
 static const uint8_t FUNCTION_READ_REGISTERS = 0x03;
 static const uint8_t FUNCTION_WRITE_SINGLE_REGISTER = 0x06;
 static const uint8_t FUNCTION_WRITE_MULTIPLE_REGISTERS = 0x10;
@@ -66,7 +68,8 @@ void EvseWallbox::on_modbus_data(const std::vector<uint8_t> &data) {
   }
 
   ESP_LOGW(TAG, "Invalid size (%zu) for EVSE wallbox frame!", data.size());
-  ESP_LOGW(TAG, "Payload: %s", format_hex_pretty(&data.front(), data.size()).c_str());  // NOLINT
+  char hex_buf[format_hex_pretty_size(MAX_HEX_DUMP_BYTES)];
+  ESP_LOGW(TAG, "Payload: %s", format_hex_pretty_to(hex_buf, data, '.'));
 }
 
 void EvseWallbox::on_config_data_(const std::vector<uint8_t> &data) {
