@@ -1,9 +1,9 @@
 """Schema structure tests for evse_wallbox ESPHome component modules."""
 
-import os
+from pathlib import Path
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import components.evse_wallbox as hub  # noqa: E402
 from components.evse_wallbox import (  # noqa: E402
