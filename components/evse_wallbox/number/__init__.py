@@ -13,6 +13,7 @@ from esphome.const import (
 )
 
 from .. import CONF_EVSE_WALLBOX_ID, EVSE_WALLBOX_COMPONENT_SCHEMA, evse_wallbox_ns
+from ..const import CONF_OUTPUT_CURRENT_SETTING
 
 DEPENDENCIES = ["evse_wallbox"]
 
@@ -20,7 +21,6 @@ CODEOWNERS = ["@syssi"]
 
 DEFAULT_STEP = 1
 
-CONF_OUTPUT_CURRENT_SETTING = "output_current_setting"
 CONF_OUTPUT_CURRENT_DEFAULT = "output_current_default"
 CONF_MIN_CHARGING_CURRENT = "min_charging_current"
 

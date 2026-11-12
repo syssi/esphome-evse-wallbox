@@ -12,12 +12,12 @@ from esphome.const import (
 )
 
 from . import CONF_EVSE_WALLBOX_ID, EVSE_WALLBOX_COMPONENT_SCHEMA
+from .const import CONF_OUTPUT_CURRENT_SETTING
 
 DEPENDENCIES = ["evse_wallbox"]
 
 CODEOWNERS = ["@syssi"]
 
-CONF_OUTPUT_CURRENT_SETTING = "output_current_setting"
 CONF_OUTPUT_CURRENT = "output_current"
 CONF_VEHICLE_STATUS_CODE = "vehicle_status_code"
 CONF_CABLE_LIMIT_DETECTED = "cable_limit_detected"
