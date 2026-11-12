@@ -3,6 +3,8 @@ from esphome.components import modbus
 import esphome.config_validation as cv
 from esphome.const import CONF_ID
 
+from .const import CONF_FIRMWARE_VERSION
+
 CODEOWNERS = ["@syssi"]
 DOMAIN = "evse_wallbox"
 
@@ -11,7 +13,6 @@ AUTO_LOAD = ["binary_sensor", "button", "number", "sensor", "switch", "text_sens
 MULTI_CONF = True
 
 CONF_EVSE_WALLBOX_ID = "evse_wallbox_id"
-CONF_FIRMWARE_VERSION = "firmware_version"
 
 evse_wallbox_ns = cg.esphome_ns.namespace("evse_wallbox")
 EvseWallbox = evse_wallbox_ns.class_(
