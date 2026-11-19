@@ -14,7 +14,6 @@ class EvseButton : public button::Button, public Component {
   void set_holding_register(uint16_t holding_register) { this->holding_register_ = holding_register; };
   void set_payload(uint16_t payload) { this->payload_ = payload; };
   void dump_config() override;
-  void loop() override {}
   float get_setup_priority() const override { return setup_priority::DATA; }
 
  protected:
