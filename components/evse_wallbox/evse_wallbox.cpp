@@ -319,6 +319,17 @@ void EvseWallbox::dump_config() {  // NOLINT(google-readability-function-size,re
   LOG_TEXT_SENSOR("", "Last Command", this->last_command_text_sensor_);
   LOG_TEXT_SENSOR("", "Operation Mode", this->operation_mode_text_sensor_);
   LOG_TEXT_SENSOR("", "Errors", this->errors_text_sensor_);
+
+  LOG_SWITCH("", "Current change by button", this->current_change_by_button_switch_);
+  LOG_SWITCH("", "Stop charging on button press", this->stop_charging_on_button_press_switch_);
+  LOG_SWITCH("", "Pilot ready state LED always on", this->pilot_ready_state_led_always_on_switch_);
+  LOG_SWITCH("", "Charging of vehicle status d", this->charging_of_vehicle_status_d_switch_);
+  LOG_SWITCH("", "RCD feedback on MCLR pin", this->rcd_feedback_on_mclr_pin_switch_);
+  LOG_SWITCH("", "Auto clear RCD error", this->auto_clear_rcd_error_switch_);
+  LOG_SWITCH("", "An internal pullup", this->an_internal_pullup_switch_);
+  LOG_SWITCH("", "Disable EVSE after charge", this->disable_evse_after_charge_switch_);
+  LOG_SWITCH("", "Disable EVSE", this->disable_evse_switch_);
+  LOG_SWITCH("", "Bootloader mode", this->bootloader_mode_switch_);
 }
 
 std::string EvseWallbox::error_bits_to_string_(const uint16_t mask) {

@@ -1,20 +1,17 @@
 #pragma once
 
 #include "../evse_wallbox.h"
-#include "esphome/core/component.h"
 #include "esphome/components/button/button.h"
 
 namespace esphome::evse_wallbox {
 
 class EvseWallbox;
 
-class EvseButton : public button::Button, public Component {
+class EvseButton : public button::Button {
  public:
   void set_parent(EvseWallbox *parent) { this->parent_ = parent; };
   void set_holding_register(uint16_t holding_register) { this->holding_register_ = holding_register; };
   void set_payload(uint16_t payload) { this->payload_ = payload; };
-  void dump_config() override;
-  float get_setup_priority() const override { return setup_priority::DATA; }
 
  protected:
   void press_action() override;

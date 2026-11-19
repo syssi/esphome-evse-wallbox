@@ -19,7 +19,7 @@ BUTTONS = {
     CONF_CLEAR_RCD_ERROR: [1004, 4],
 }
 
-EvseButton = evse_wallbox_ns.class_("EvseButton", button.Button, cg.Component)
+EvseButton = evse_wallbox_ns.class_("EvseButton", button.Button)
 
 CONFIG_SCHEMA = EVSE_WALLBOX_COMPONENT_SCHEMA.extend(
     {
@@ -42,7 +42,6 @@ async def to_code(config):
         if key in config:
             conf = config[key]
             var = await button.new_button(conf)
-            await cg.register_component(var, conf)
             cg.add(var.set_parent(hub))
             cg.add(var.set_holding_register(address[0]))
             cg.add(var.set_payload(address[1]))
